@@ -5,6 +5,7 @@ sess = get_session()
 
 
 def get_key() -> Note:
+    """Allows the user to enter a note which will be the key of the scale"""
     while True:
         name = input('Enter a key (for example, C#): ')
 
@@ -15,6 +16,7 @@ def get_key() -> Note:
 
 
 def get_scale() -> Scale:
+    """Allows the user to choose a scale from the database and returns which scale they chose"""
     for scale in sess.query(Scale).all():
         print(f'{scale.id}: {scale.name}')
 
@@ -24,6 +26,7 @@ def get_scale() -> Scale:
             scale_id = int(scale_id)
         except ValueError:
             print('Invalid input')
+            continue
 
         scale = sess.query(Scale).filter_by(id=scale_id).first()
 
