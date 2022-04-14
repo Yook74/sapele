@@ -36,7 +36,7 @@ def get_blank_length(bore_diameter: float, dl_factor: float) -> float:
 
 
 def main():
-    while True:
+
         bore_diameter = get_dimension('bore diameter')
         wall_thickness = get_dimension('wall thickness')
         dl_factor = get_dimension('D/L Factor', default=18)

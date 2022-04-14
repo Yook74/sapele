@@ -43,7 +43,8 @@ try:
 
         print(
             ', '.join([note.name for note in scale.get_notes(key)])
-        )
+            )
 
 finally:
     sess.close()
+
