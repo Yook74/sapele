@@ -24,7 +24,6 @@ def get_calc_factor(default=None) -> float:
             print('Invalid Input')
 
 
-
 def get_hole_placements(bore_length: float, calc_factor: float):
     """Get Top and Bottom hole placements"""
     return bore_length - (bore_length * calc_factor), bore_length * calc_factor
