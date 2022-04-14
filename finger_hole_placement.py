@@ -1,4 +1,4 @@
-"""Returns Top and Bottom hole Recommendations"""
+"""Returns Top and Bottom hole Placement Recommendations"""
 
 def get_bore_length() -> float:
     """Get Bore Length"""
@@ -10,16 +10,32 @@ def get_bore_length() -> float:
             print('Invalid Input')
 
 
-def get_hole_placements(bore_length: float):
-    """Get top finger hole placement"""
-    return bore_length - (bore_length * .315), bore_length * .315
+def get_calc_factor(default=None) -> float:
+    """ Assigns the bore factor used in bore length calculation"""
+    while True:
+        value = input(f'Enter the calculation factor (.315 is default): ')
+
+        if not value:
+            return default
+
+        try:
+            return float(value)
+        except ValueError:
+            print('Invalid Input')
+
+
+
+def get_hole_placements(bore_length: float, calc_factor: float):
+    """Get Top and Bottom hole placements"""
+    return bore_length - (bore_length * calc_factor), bore_length * calc_factor
 
 
 def main():
     while True:
+        calc_factor = get_calc_factor(default=.315)
         bore_length = get_bore_length()
-        max_distance, min_distance = get_hole_placements(bore_length)
-        print(f'\nMAX: {max_distance:.2f} inches\nMIN: {min_distance:.2f} inches\n')
+        max_distance, min_distance = get_hole_placements(bore_length, calc_factor)
+        print(f'\nCALC FACTOR: {calc_factor:.3f} inches\nMAX: {max_distance:.2f} inches\nMIN: {min_distance:.2f} inches\n')
 
 
 if __name__ == '__main__':

@@ -1,9 +1,14 @@
 """Returns Blank sizing information based on entered bore diameter and wall thickness"""
 
 
-def get_dimension(dimension_name: str) -> float:
+def get_dimension(dimension_name: str, default=None) -> float:
+    """Get value for Dimension Name in inches"""
     while True:
         value = input(f'Enter the {dimension_name}: ')
+
+        if not value:
+            return default
+
         try:
             return float(value)
         except ValueError:
@@ -34,7 +39,7 @@ def main():
     while True:
         bore_diameter = get_dimension('bore diameter')
         wall_thickness = get_dimension('wall thickness')
-        dl_factor = get_dimension('D/L Factor')
+        dl_factor = get_dimension('D/L Factor', default=18)
 
         blank_single_width = get_blank_single(bore_diameter, wall_thickness)
         blank_drone_width = get_blank_drone(bore_diameter, wall_thickness)
