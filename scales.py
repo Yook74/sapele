@@ -36,15 +36,21 @@ def get_scale() -> Scale:
             return scale
 
 
-try:
-    while True:
+def main():
+
+    try:
+
         key = get_key()
         scale = get_scale()
-
+        print(f'--------------------------------------------')
         print(
             ', '.join([note.name for note in scale.get_notes(key)])
             )
+        print(f'--------------------------------------------\n')
 
-finally:
-    sess.close()
+    finally:
+        sess.close()
 
+
+if __name__ == '__main__':
+    main()

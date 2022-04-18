@@ -38,14 +38,15 @@ def get_temp_offset(ambient_temp_f: float) -> float:
 
 
 def main():
-    while True:
-        ambient_temp = get_ambient_temp_f()
-        freq_offset = get_temp_offset(ambient_temp)
-        freq_ref = get_reference_freq()
-        tuning_freq = freq_ref + freq_offset
 
-        print(f'\nThe frequency offset for {freq_ref:.0f} is {freq_offset:.1f} Hz')
-        print(f'Set the tuner reference to {tuning_freq:.1f} Hz\n')
+    ambient_temp = get_ambient_temp_f()
+    freq_offset = get_temp_offset(ambient_temp)
+    freq_ref = get_reference_freq()
+    tuning_freq = freq_ref + freq_offset
+
+    print(f'--------------------------------------------')
+    print(f'Set the tuner reference to {tuning_freq:.1f} Hz')
+    print(f'--------------------------------------------\n')
 
 
 if __name__ == '__main__':

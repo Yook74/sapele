@@ -30,12 +30,13 @@ def get_hole_placements(bore_length: float, calc_factor: float):
 
 
 def main():
-    while True:
-        calc_factor = get_calc_factor(default=.315)
-        bore_length = get_bore_length()
-        max_distance, min_distance = get_hole_placements(bore_length, calc_factor)
-        print(f'\nCALC FACTOR: {calc_factor:.3f} inches\nMAX: {max_distance:.2f} inches\nMIN: {min_distance:.2f} inches\n')
 
+    calc_factor = get_calc_factor(default=.315)
+    bore_length = get_bore_length()
+    max_distance, min_distance = get_hole_placements(bore_length, calc_factor)
+    print(f'--------------------------------------------')
+    print(f'CALC FACTOR: {calc_factor:.3f} inches\nMAX: {max_distance:.2f} inches\nMIN: {min_distance:.2f} inches')
+    print(f'--------------------------------------------\n')
 
 if __name__ == '__main__':
     main()

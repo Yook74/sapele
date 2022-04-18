@@ -3,12 +3,13 @@
 import tuning
 import blank_sizing
 import finger_hole_placement
+import scales
 
 
 def select_script() -> int:
     """Selects script to run"""
     while True:
-        value = input(f'SELECT NUMBER: Blank Sizing = 1 , Hole Placement = 2 , Tuning Offset = 3 , Scale = 4\n')
+        value = input(f'SELECT NUMBER: ')
 
         try:
             return int(value)
@@ -17,8 +18,16 @@ def select_script() -> int:
 
 
 def main():
+
     while True:
-        1
+
+        print(f'********************************************')
+        print(f'* 1. Get Blank Size                        *')
+        print(f'* 2. Get Finger Holes                      *')
+        print(f'* 3. Get Tuning Offset                     *')
+        print(f'* 4. Get Scale Notes                       *')
+        print(f'********************************************')
+
         num_select = select_script()
 
         if num_select == 1:
@@ -27,8 +36,9 @@ def main():
             finger_hole_placement.main()
         if num_select == 3:
             tuning.main()
+        if num_select == 4:
+            scales.main()
 
 
 if __name__ == '__main__':
     main()
-

@@ -46,12 +46,13 @@ def main():
         bore_length = get_blank_length(bore_diameter, dl_factor)
         blank_length = bore_length + 7
 
-
-        print(f'\nBORE LENGTH: {bore_length:.2f} inches')
+        print(f'--------------------------------------------')
         print(f'BLANK LENGTH: {blank_length:.2f} inches')
         print(f'BLANK HEIGHT: {wall_thickness + bore_diameter:.2f} inches')
+        print(f'BORE LENGTH: {bore_length:.2f} inches')
         print(f'SINGLE WIDTH: {blank_single_width:.2f} inches')
-        print(f'DRONE WIDTH: {blank_drone_width:.2f} inches\n')
+        print(f'DRONE WIDTH: {blank_drone_width:.2f} inches')
+        print(f'--------------------------------------------\n')
 
 
 if __name__ == '__main__':
