@@ -42,11 +42,11 @@ def main():
 
         key = get_key()
         scale = get_scale()
-        print(f'--------------------------------------------')
+        print(f'----------------------------')
         print(
             ', '.join([note.name for note in scale.get_notes(key)])
             )
-        print(f'--------------------------------------------\n')
+        print(f'----------------------------\n')
 
     finally:
         sess.close()

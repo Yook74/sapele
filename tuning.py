@@ -44,9 +44,9 @@ def main():
     freq_ref = get_reference_freq()
     tuning_freq = freq_ref + freq_offset
 
-    print(f'--------------------------------------------')
-    print(f'Set the tuner reference to {tuning_freq:.1f} Hz')
-    print(f'--------------------------------------------\n')
+    print(f'----------------------------')
+    print(f'Tuner reference = {tuning_freq:.1f} Hz')
+    print(f'----------------------------\n')
 
 
 if __name__ == '__main__':

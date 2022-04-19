@@ -21,12 +21,12 @@ def main():
 
     while True:
 
-        print(f'********************************************')
-        print(f'* 1. Get Blank Size                        *')
-        print(f'* 2. Get Finger Holes                      *')
-        print(f'* 3. Get Tuning Offset                     *')
-        print(f'* 4. Get Scale Notes                       *')
-        print(f'********************************************')
+        print(f'****************************')
+        print(f'1. Get Blank Size          *')
+        print(f'2. Get Finger Holes        *')
+        print(f'3. Get Tuning Offset       *')
+        print(f'4. Get Scale Notes         *')
+        print(f'****************************')
 
         num_select = select_script()
 
