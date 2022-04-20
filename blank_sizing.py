@@ -49,7 +49,7 @@ def main():
 
     print(f'----------------------------')
     print(f'BLANK LENGTH: {blank_length:.2f} inches')
-    print(f'BLANK HEIGHT: {blank_height} inches')
+    print(f'BLANK HEIGHT: {blank_height:.2f} inches')
     print(f'BORE LENGTH: {bore_length:.2f} inches')
     print(f'SINGLE WIDTH: {blank_single_width:.2f} inches')
     print(f'DRONE WIDTH: {blank_drone_width:.2f} inches')
