@@ -10,11 +10,13 @@ def select_script() -> int:
     """Selects script to run"""
     while True:
         value = input(f'SELECT NUMBER: ')
+        if not value:
+            exit()
 
         try:
             return int(value)
         except ValueError:
-            print ('Invalid Input')
+            print('Invalid Input')
 
 
 def main():
