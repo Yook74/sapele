@@ -1,57 +1,50 @@
 """Returns finger hole Placement Recommendations"""
 from database.models import Note, Scale
 from database.connection import get_session
+from typing import Type, Callable, Optional
+
 
 sess = get_session()
 
+def get_value_from_user(prompt: str, type_: Type = str, default=None, validation_func: Optional[Callable] = None):
+    """ a generic function to get an inputted value from the user over the command line
 
-def get_bore_length() -> float:
-    """Get Bore Length"""
+    :param prompt: a string like "enter your age" which the user should respond to
+    :param type_: this function will attempt to convert the response to the given type before returning it
+    :param default: this will be returned if the user enters nothing.
+        It will also be appended to the prompt for the user's convenience
+    :param validation_func: a one-parameter function that returns True if the value is valid and False otherwise
+    :return: the value entered by the user converted to the given type or the default value
+    """
+
+    if default:
+        prompt += f' (default: {default}): '
+    else:
+        prompt += ': '
+
     while True:
-        value = input(f'Enter the bore length: ')
-        try:
-            return float(value)
-        except ValueError:
-            print('Invalid Input')
-
-
-def get_calc_factor(default=None) -> float:
-    """ Assigns the bore factor used in bore length calculation"""
-    while True:
-        value = input(f'Enter the calculation factor (.315 is default): ')
+        value = input(prompt)
 
         if not value:
             return default
 
         try:
-            return float(value)
+            value = type_(value)
         except ValueError:
-            print('Invalid Input')
+            print('invalid input')
+            continue
 
-
-def get_top_bottom_hole_placements(bore_length: float, calc_factor: float):
-    """Get Top and Bottom hole placements"""
-    return bore_length - (bore_length * calc_factor), bore_length * calc_factor
-
-
-def get_key():
-    """Select key of the scale"""
-    while True:
-        value = input('Enter a key (for example, C#): ')
-        try:
+        if validation_func:
+            if validation_func(value):
+                return value
+            else:
+                print('invalid input')
+        else:
             return value
-        except ValueError:
-            print('Invalid key name')
 
 
-def get_octave():
-    """Select octave"""
-    while True:
-        value = input(f'Enter the Octave (3, 4, or 5): ')
-        try:
-            return int(value)
-        except ValueError:
-            print('Invalid Input')
+def validate_octave(octave):
+    return 3 <= octave <= 5
 
 
 def get_scale():
@@ -60,7 +53,7 @@ def get_scale():
         print(f'{scale.id}: {scale.name}')
 
     while True:
-        scale_id = input('Please enter the number of a scale: ')
+        scale_id = input('Select the Scale: ')
         try:
             scale_id = int(scale_id)
         except ValueError:
@@ -68,9 +61,15 @@ def get_scale():
         return scale_id
 
 
+def get_top_bottom_hole_placements(bore_length: float, calc_factor: float):
+    """Get Top and Bottom hole placements"""
+    return bore_length - (bore_length * calc_factor), bore_length * calc_factor
+
+
 def get_all_finger_hole_placements(bore_length: float):
     """Get finger hole placements based on bore length percentage"""
 
+    # TODO These percent value would be derived from the average of the stored database values
     finger_hole_percents = [.68, .62, .56, .48, .40, .33]
     finger_holes_absolute = []
     for percent in finger_hole_percents:
@@ -83,20 +82,25 @@ def main():
 
     try:
 
-        calc_factor = get_calc_factor(default=.315)
-        bore_length = get_bore_length()
+        print('\n----------------------------')
+        calc_factor = get_value_from_user('Enter Calculation factor', type_=float, default=.315)
+        bore_length = get_value_from_user('Enter the Bore Length', type_=float)
         max_distance, min_distance = get_top_bottom_hole_placements(bore_length, calc_factor)
-        print(f'----------------------------')
+        print('----------------------------')
         print(f'CALC FACTOR: {calc_factor:.3f} inches\nMAX: {max_distance:.2f} inches\nMIN: {min_distance:.2f} inches')
-
-        key = get_key()
-        octave = get_octave()
+        print('----------------------------\n')
+        print('PERCENTAGE BASED:')
+        key = get_value_from_user('Enter the Key (i.e. C#)', type_=str)
+        octave = get_value_from_user('Enter the Octave (3, 4, or 5)', type_=int, default=4,
+                                     validation_func=validate_octave)
+        print('----------------------------')
         scale = get_scale()
-        # TODO I want to pull percentages based on key and octave and scale from the database
 
+        # TODO Using Key, Octave, and Scale, I want to pull percentages based the average of the data stored
+        #  in the database from the finger_hole_measurement_entry.py script
         finger_holes = get_all_finger_hole_placements(bore_length)
         print(f'----------------------------')
-        print(f'Key: {key}, Octave: {octave:d}, Scale: {scale:d}')
+        print(f'KEY: {key}, OCTAVE: {octave:d}, SCALE: {scale:d}')
 
         for index, holes in enumerate(finger_holes):
             print(f'FH_{index+1}: {holes:.2f}')

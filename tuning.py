@@ -1,30 +1,43 @@
 from math import sqrt
+from typing import Type, Callable, Optional
 
 
-def get_reference_freq() -> float:
-    """gets the reference frequency from the user and returns it as a float"""
+def get_value_from_user(prompt: str, type_: Type = str, default=None, validation_func: Optional[Callable] = None):
+    """ a generic function to get an inputted value from the user over the command line
+
+    :param prompt: a string like "enter your age" which the user should respond to
+    :param type_: this function will attempt to convert the response to the given type before returning it
+    :param default: this will be returned if the user enters nothing.
+        It will also be appended to the prompt for the user's convenience
+    :param validation_func: a one-parameter function that returns True if the value is valid and False otherwise
+    :return: the value entered by the user converted to the given type or the default value
+    """
+
+    if default:
+        prompt += f' (default: {default}): '
+    else:
+        prompt += ': '
+
     while True:
-        freq_ref = input('Enter the reference frequency in Hz (default is 440): ')
+        value = input(prompt)
 
-        if freq_ref:
-            freq_ref = float(freq_ref)
-        else:
-            freq_ref = 440
+        if not value:
+            return default
 
-        if freq_ref < 100 or freq_ref > 1000:
-            print('Enter a number greater than 100')
-        else:
-            return freq_ref
-
-
-def get_ambient_temp_f() -> float:
-    """gets the current ambient temperature in degrees F and returns it as a float"""
-    while True:
-        tuning_temp = input('Enter the ambient temperature in Deg (F): ')
         try:
-            return float(tuning_temp)
+            value = type_(value)
         except ValueError:
-            print('Invalid input')
+            print('invalid input')
+            continue
+
+        if validation_func:
+            if validation_func(value):
+                return value
+            else:
+                print('invalid input')
+        else:
+            return value
+
 
 
 def get_temp_offset(ambient_temp_f: float) -> float:
@@ -39,10 +52,12 @@ def get_temp_offset(ambient_temp_f: float) -> float:
 
 def main():
 
-    ambient_temp = get_ambient_temp_f()
+
+    ambient_temp = get_value_from_user('Enter the ambient temperature in Deg: ', type_=int, default=72)
+    freq_ref = get_value_from_user('Enter Reference Frequency in Hz: ', type_=int, default=440)
     freq_offset = get_temp_offset(ambient_temp)
-    freq_ref = get_reference_freq()
     tuning_freq = freq_ref + freq_offset
+
 
     print(f'----------------------------')
     print(f'Tuner reference = {tuning_freq:.1f} Hz')

@@ -4,6 +4,7 @@ import tuning
 import blank_sizing
 import finger_hole_placement
 import scales
+import measurement_data_entry
 
 
 def select_script() -> int:
@@ -24,10 +25,9 @@ def main():
     while True:
 
         print(f'****************************')
-        print(f'1. Get Blank Size          *')
-        print(f'2. Get Finger Holes        *')
-        print(f'3. Get Tuning Offset       *')
-        print(f'4. Get Scale Notes         *')
+        print(f'1. Get Blank Sizing        *')
+        print(f'2. Get Tuner Ref Offset    *')
+        print(f'3. Measurement Data        *')
         print(f'****************************')
 
         num_select = select_script()
@@ -35,11 +35,9 @@ def main():
         if num_select == 1:
             blank_sizing.main()
         if num_select == 2:
-            finger_hole_placement.main()
-        if num_select == 3:
             tuning.main()
-        if num_select == 4:
-            scales.main()
+        if num_select == 3:
+            measurement_data_entry.main()
 
 
 if __name__ == '__main__':
