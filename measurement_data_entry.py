@@ -97,7 +97,7 @@ def main():
     # TODO I want to be able to store this data and be able to retrieve it as averaged data
     #  based on key, octave, and scale. I would also like to retrieve individual records
     #  (searched by key, octave, and/or customer)
-   try:
+    try:
 
         print(f'\n----------------------------')
         customer_name = get_value_from_user('Enter the Customer Name: ', default='Shop Stock')
@@ -112,6 +112,7 @@ def main():
         wall_thickness = get_value_from_user('Enter the Wall Thickness',  type_=float, default=.1875)
         print(f'----------------------------\n')
 
+
         while True:
             print(f'<<<<<  HOLE PLACEMENT  >>>>>')
             print(f'1. Use Calc Factor         *')
@@ -122,7 +123,12 @@ def main():
 
             if num_select == 1:
                 calc_factor = get_value_from_user('Enter Calculation factor', type_=float, default=.315)
+                max_distance, min_distance = get_top_bottom_hole_placements(bore_length, calc_factor)
                 get_top_bottom_hole_placements(bore_length, calc_factor)
+                print(f'\nCALC FACTOR: {calc_factor:.3f} inches')
+                print(f'FH_1: {min_distance:.3f} inches\n')
+                print(f'FH_6: {max_distance:.3f} inches')
+
             if num_select == 2:
                 finger_holes = get_all_finger_hole_placements(bore_length)
                 for index, holes in enumerate(finger_holes):
