@@ -114,7 +114,8 @@ def main():
 
 
         while True:
-            print(f'<<<<<  HOLE PLACEMENT  >>>>>')
+            print(f'HOLE PLACEMENT')
+            print(f'****************************')
             print(f'1. Use Calc Factor         *')
             print(f'2. Use Percentage Values   *')
             print(f'****************************')
@@ -125,9 +126,11 @@ def main():
                 calc_factor = get_value_from_user('Enter Calculation factor', type_=float, default=.315)
                 max_distance, min_distance = get_top_bottom_hole_placements(bore_length, calc_factor)
                 get_top_bottom_hole_placements(bore_length, calc_factor)
-                print(f'\nCALC FACTOR: {calc_factor:.3f} inches')
-                print(f'FH_1: {min_distance:.3f} inches\n')
+                print(f'\n---------------------------')
+                print(f'CALC FACTOR: {calc_factor:.3f} inches')
+                print(f'FH_1: {min_distance:.3f} inches')
                 print(f'FH_6: {max_distance:.3f} inches')
+                print(f'---------------------------\n')
 
             if num_select == 2:
                 finger_holes = get_all_finger_hole_placements(bore_length)
