@@ -134,8 +134,11 @@ def main():
 
             if num_select == 2:
                 finger_holes = get_all_finger_hole_placements(bore_length)
+                print(f'\n---------------------------')
+                print('RECOMMENDED PLACEMENT:')
                 for index, holes in enumerate(finger_holes):
                     print(f'FH_{index+1}: {holes:.2f}')
+                print(f'---------------------------\n')
 
 
     finally:
