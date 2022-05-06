@@ -5,7 +5,7 @@ from typing import Type, Callable, Optional
 sess = get_session()
 
 
-"""This script is used to gather flute measurement data of a finished flute, prior top placing the finger holes"""
+"""This script is used to gather flute measurement data, prior top placing the finger holes"""
 
 
 def get_value_from_user(prompt: str, type_: Type = str, default=None, validation_func: Optional[Callable] = None):
@@ -97,52 +97,28 @@ def main():
     # TODO I want to be able to store this data and be able to retrieve it as averaged data
     #  based on key, octave, and scale. I would also like to retrieve individual records
     #  (searched by key, octave, and/or customer)
-    try:
 
-        print(f'\n----------------------------')
-        customer_name = get_value_from_user('Enter the Customer Name: ', default='Shop Stock')
-        key = get_value_from_user('Enter the Key', type_=str)
-        octave = get_value_from_user('Enter the Octave', type_=int, default=4, validation_func=validate_octave)
-        total_length = get_value_from_user('Enter the Total Length', type_=float)
-        bore_length = get_value_from_user('Enter the Bore Length', type_=float)
-        bore_diameter = get_value_from_user('Enter the Bore Diameter', type_=float)
-        tsh_width = get_value_from_user('Enter the TSH Width', type_=float)
-        tsh_length = get_value_from_user('Enter the TSH Length',  type_=float)
-        flue_depth = get_value_from_user('Enter the Flue Depth', type_=float, default=.085)
-        wall_thickness = get_value_from_user('Enter the Wall Thickness',  type_=float, default=.1875)
-        print(f'----------------------------\n')
+    print(f'\n----------------------------')
+    customer_name = get_value_from_user('Enter the Customer Name: ', default='Shop Stock')
+    key = get_value_from_user('Enter the Key', type_=str)
+    octave = get_value_from_user('Enter the Octave', type_=int, default=4, validation_func=validate_octave)
+    total_length = get_value_from_user('Enter the Total Length', type_=float)
+    bore_length = get_value_from_user('Enter the Bore Length', type_=float)
+    bore_diameter = get_value_from_user('Enter the Bore Diameter', type_=float)
+    tsh_width = get_value_from_user('Enter the TSH Width', type_=float)
+    tsh_length = get_value_from_user('Enter the TSH Length',  type_=float)
+    flue_depth = get_value_from_user('Enter the Flue Depth', type_=float, default=.085)
+    wall_thickness = get_value_from_user('Enter the Wall Thickness',  type_=float, default=.1875)
+    finger_holes = get_all_finger_hole_placements(bore_length)
+    print(f'----------------------------')
 
+    print(f'\n---------------------------')
+    print('RECOMMENDED PLACEMENT:')
+    for index, holes in enumerate(finger_holes):
+        print(f'FH_{index+1}: {holes:.2f}')
+    print(f'---------------------------\n')
 
-        while True:
-            print(f'HOLE PLACEMENT')
-            print(f'****************************')
-            print(f'1. Use Calc Factor         *')
-            print(f'2. Use Percentage Values   *')
-            print(f'****************************')
-
-            num_select = select_script()
-
-            if num_select == 1:
-                calc_factor = get_value_from_user('Enter Calculation factor', type_=float, default=.315)
-                max_distance, min_distance = get_top_bottom_hole_placements(bore_length, calc_factor)
-                get_top_bottom_hole_placements(bore_length, calc_factor)
-                print(f'\n---------------------------')
-                print(f'CALC FACTOR: {calc_factor:.3f} inches')
-                print(f'FH_1: {min_distance:.3f} inches')
-                print(f'FH_6: {max_distance:.3f} inches')
-                print(f'---------------------------\n')
-
-            if num_select == 2:
-                finger_holes = get_all_finger_hole_placements(bore_length)
-                print(f'\n---------------------------')
-                print('RECOMMENDED PLACEMENT:')
-                for index, holes in enumerate(finger_holes):
-                    print(f'FH_{index+1}: {holes:.2f}')
-                print(f'---------------------------\n')
-
-
-    finally:
-        sess.close()
+    sess.close()
 
 
 if __name__ == '__main__':
