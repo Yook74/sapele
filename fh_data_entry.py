@@ -43,14 +43,14 @@ def get_scale_names():
     scale_names = ['Minor Pent', 'Major', 'Mojave', 'Mayan', 'Magen Avot']
     while True:
 
-        print(f'\n****************************')
+        print(f'****************************')
         for index, name in enumerate(scale_names):
             print(f'{index + 1} : {name}')
         print(f'****************************')
 
         num_select = select_script()
 
-        return scale_names.pop(num_select)
+        return scale_names.pop(num_select-1)
 
 
 
@@ -88,9 +88,8 @@ def main():
     octave = get_value_from_user('Enter the Octave: ', type_=int, validation_func=validate_octave)
     scale = get_scale_names()
 
-
-    print (f'Key: {key} Octave: {octave} Scale: {scale}')
-
+    print (f'Key: {key} Octave: {octave} Scale: {scale}\n')
+    print(f'{key}_{octave}_{scale}\n')
 
 
 sess.close()

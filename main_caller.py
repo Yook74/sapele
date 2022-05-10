@@ -2,8 +2,6 @@
 
 import tuning
 import blank_sizing
-import finger_hole_placement
-import scales
 import measurement_data_entry
 import fh_data_entry
 
