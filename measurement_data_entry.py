@@ -128,20 +128,21 @@ def main():
     flue_depth = get_value_from_user('Enter the Flue Depth', type_=float, default=.085)
     wall_thickness = get_value_from_user('Enter the Wall Thickness',  type_=float, default=.1875)
 
-    file_path = f'records/{key}_{octave}_{scale.name}.csv'
+    file_path = f'records/FH_Percents.csv'
     if not path.exists(file_path):
         with open(file_path, 'w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(['FH1', 'FH2', 'FH3', 'FH4', 'FH5', 'FH6'])
+            writer.writerow(['Key_Octave_Scale', 'FH1', 'FH2', 'FH3', 'FH4', 'FH5', 'FH6'])
 
     with open(file_path, 'a', newline='') as file:
         writer = csv.writer(file)
         percent_values = enter_seed_values('Enter Initial Percentage Values as comma separated string: ')
         writer.writerow(percent_values.split(','))
 
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-    print(reader)
+    with open(file_path) as file:
+        fh_file = csv.DictReader(file)
+
+        avg_values = []
 
 
 
