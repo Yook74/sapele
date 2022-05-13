@@ -1,6 +1,9 @@
 from database.models import Note, Scale
 from database.connection import get_session
 from typing import Type, Callable, Optional
+import csv
+from os import path
+from statistics import mean as average
 
 sess = get_session()
 
@@ -93,6 +96,19 @@ def validate_octave(octave):
     return 3 <= octave <= 5
 
 
+def enter_seed_values(prompt: str):
+    """Enter Finger Hole seed values as comma separated string if new file encountered"""
+    while True:
+        value = input(prompt)
+        if not value:
+            exit()
+
+        try:
+            return str(value)
+        except ValueError:
+            print('Invalid Input')
+
+
 def main():
     # TODO I want to be able to store this data and be able to retrieve it as averaged data
     #  based on key, octave, and scale. I would also like to retrieve individual records
@@ -102,6 +118,8 @@ def main():
     customer_name = get_value_from_user('Enter the Customer Name: ', default='Shop Stock')
     key = get_value_from_user('Enter the Key', type_=str)
     octave = get_value_from_user('Enter the Octave', type_=int, default=4, validation_func=validate_octave)
+    scale_num = get_scale()
+    scale = sess.query(Scale).filter_by(id=scale_num).first()
     total_length = get_value_from_user('Enter the Total Length', type_=float)
     bore_length = get_value_from_user('Enter the Bore Length', type_=float)
     bore_diameter = get_value_from_user('Enter the Bore Diameter', type_=float)
@@ -109,6 +127,24 @@ def main():
     tsh_length = get_value_from_user('Enter the TSH Length',  type_=float)
     flue_depth = get_value_from_user('Enter the Flue Depth', type_=float, default=.085)
     wall_thickness = get_value_from_user('Enter the Wall Thickness',  type_=float, default=.1875)
+
+    file_path = f'records/{key}_{octave}_{scale.name}.csv'
+    if not path.exists(file_path):
+        with open(file_path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['FH1', 'FH2', 'FH3', 'FH4', 'FH5', 'FH6'])
+
+    with open(file_path, 'a', newline='') as file:
+        writer = csv.writer(file)
+        percent_values = enter_seed_values('Enter Initial Percentage Values as comma separated string: ')
+        writer.writerow(percent_values.split(','))
+
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+    print(reader)
+
+
+
     finger_holes = get_all_finger_hole_placements(bore_length)
     print(f'----------------------------')
 

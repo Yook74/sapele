@@ -2,6 +2,8 @@
 from database.models import Note, Scale
 from database.connection import get_session
 from typing import Type, Callable, Optional
+import csv
+from os import path
 
 sess = get_session()
 
@@ -39,6 +41,10 @@ def validate_octave(octave):
     return 3 <= octave <= 5
 
 
+def validate_hole_num_range(fh_num):
+    return 1 <= fh_num <= 7
+
+
 def get_scale_names():
     scale_names = ['Minor Pent', 'Major', 'Mojave', 'Mayan', 'Magen Avot']
     while True:
@@ -68,6 +74,43 @@ def get_scale():
         return scale_id
 
 
+def enter_seed_values(prompt: str):
+    """Enter Finger Hole seed values as comma separated string if new file encountered"""
+    while True:
+        value = input(prompt)
+        if not value:
+            exit()
+
+        try:
+            return str(value)
+        except ValueError:
+            print('Invalid Input')
+
+
+def enter_
+
+def select_finger_hole(type_: Type = str, validation_func: Optional[Callable] = None):
+    """Selects script to run"""
+
+    while True:
+        value = input(f'SELECT FH: ')
+        if not value:
+            exit()
+
+        try:
+            return type_(value)
+        except ValueError:
+            print('Invalid Input')
+
+        if validation_func:
+            if validation_func(value):
+                return value
+            else:
+                print('invalid input')
+        else:
+            return value
+
+
 def select_script() -> int:
     """Selects script to run"""
     while True:
@@ -90,6 +133,22 @@ def main():
 
     print (f'Key: {key} Octave: {octave} Scale: {scale}\n')
     print(f'{key}_{octave}_{scale}\n')
+
+    file_path = f'records/{key}_{octave}_{scale}.csv'
+
+    if not path.exists(file_path):
+        with open(file_path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['FH1', 'FH2', 'FH3', 'FH4', 'FH5', 'FH6'])
+            enter_seed_values('Enter Initial Percentage Values as comma separated string: ')
+
+    while True:
+
+        num_select = select_finger_hole()
+
+        if int(num_select) == 1:
+            print('this worked')
+
 
 
 sess.close()
