@@ -97,7 +97,8 @@ def validate_octave(octave):
 
 
 def enter_seed_values(prompt: str):
-    """Enter Finger Hole seed values as comma separated string if new file encountered"""
+    """Enter Finger Hole percent seed values as comma separated string
+    i.e.( A,4,Minor Pent,10.0,20.1,30.2,40.3,50.4,60.5"""
     while True:
         value = input(prompt)
         if not value:
@@ -128,24 +129,25 @@ def main():
     flue_depth = get_value_from_user('Enter the Flue Depth', type_=float, default=.085)
     wall_thickness = get_value_from_user('Enter the Wall Thickness',  type_=float, default=.1875)
 
+    key_octave_scale = key, octave, scale.name
+    print(f'{key_octave_scale}')
+
     file_path = f'records/FH_Percents.csv'
     if not path.exists(file_path):
         with open(file_path, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['Key_Octave_Scale', 'FH1', 'FH2', 'FH3', 'FH4', 'FH5', 'FH6'])
+            percent_values = enter_seed_values('Enter Initial Percentage Values as comma separated string: ')
+            writer.writerow(key_octave_scale, percent_values.split(','))
 
-    with open(file_path, 'a', newline='') as file:
-        writer = csv.writer(file)
-        percent_values = enter_seed_values('Enter Initial Percentage Values as comma separated string: ')
-        writer.writerow(percent_values.split(','))
+    with open(file_path) as fh_file:
+        fh_percent = csv.DictReader(fh_file)
 
-    with open(file_path) as file:
-        fh_file = csv.DictReader(file)
+        fh_values = []
+        for row in fh_percent:
+            fh_values.append(float(row['FH1']))
 
-        avg_values = []
-
-
-
+    print (average(fh_values))
     finger_holes = get_all_finger_hole_placements(bore_length)
     print(f'----------------------------')
 

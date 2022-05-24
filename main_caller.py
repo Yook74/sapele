@@ -27,7 +27,7 @@ def main():
         print(f'1. Get Blank Sizing        *')
         print(f'2. Get Tuner Ref Offset    *')
         print(f'3. Data Entry (Pre-Tune)   *')
-        print(f'4. FH Data (Post-Tune)     *')
+        print(f'4. FH Entry (Post-Tune)    *')
         print(f'****************************')
 
         num_select = select_script()
