@@ -87,8 +87,6 @@ def enter_seed_values(prompt: str):
             print('Invalid Input')
 
 
-def enter_
-
 def select_finger_hole(type_: Type = str, validation_func: Optional[Callable] = None):
     """Selects script to run"""
 

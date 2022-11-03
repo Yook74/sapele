@@ -133,21 +133,15 @@ def main():
     print(f'{key_octave_scale}')
 
     file_path = f'records/FH_Percents.csv'
-    if not path.exists(file_path):
-        with open(file_path, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(['Key_Octave_Scale', 'FH1', 'FH2', 'FH3', 'FH4', 'FH5', 'FH6'])
-            percent_values = enter_seed_values('Enter Initial Percentage Values as comma separated string: ')
-            writer.writerow(key_octave_scale, percent_values.split(','))
 
     with open(file_path) as fh_file:
         fh_percent = csv.DictReader(fh_file)
-
         fh_values = []
         for row in fh_percent:
             fh_values.append(float(row['FH1']))
 
-    print (average(fh_values))
+    print(average(fh_values))
+
     finger_holes = get_all_finger_hole_placements(bore_length)
     print(f'----------------------------')
 

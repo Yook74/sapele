@@ -60,7 +60,6 @@ def get_scale():
             print('Invalid input')
         return scale_id
 
-
 def get_top_bottom_hole_placements(bore_length: float, calc_factor: float):
     """Get Top and Bottom hole placements"""
     return bore_length - (bore_length * calc_factor), bore_length * calc_factor
@@ -86,7 +85,7 @@ def main():
         calc_factor = get_value_from_user('Enter Calculation factor', type_=float, default=.315)
         bore_length = get_value_from_user('Enter the Bore Length', type_=float)
         max_distance, min_distance = get_top_bottom_hole_placements(bore_length, calc_factor)
-        print('----------------------------')
+        print('----------------------------\n')
         print(f'CALC FACTOR: {calc_factor:.3f} inches\nMAX: {max_distance:.2f} inches\nMIN: {min_distance:.2f} inches')
         print('----------------------------\n')
         print('PERCENTAGE BASED:')
