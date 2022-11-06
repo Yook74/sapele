@@ -5,7 +5,7 @@ import linecache
 class MyFlute:
     """ """
     def __init__(self, bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                 single_width, drone_width, drone_bore_center, tuner_ref):
+                 single_width, drone_width, drone_bore_center, key, octave, tuner_ref):
         self.bore_length = bore_length
         self.bore_diameter = bore_diameter
         self.wall_thickness = wall_thickness
@@ -16,8 +16,8 @@ class MyFlute:
         self.drone_width = drone_width
         self.drone_bore_center = drone_bore_center
         self.fh_values = []
-        self.key = str()
-        self.octave = int()
+        self.key = key
+        self.octave = octave
         self.fudge_factor = float()
         self.tuner_ref = int(tuner_ref)
 
@@ -31,8 +31,14 @@ class MyFlute:
         print(f'DRONE_BORE_CENTER: {self.drone_bore_center:.3f}')
         print(f'----------------------------')
 
-    def get_tuner_ref(self):
-        return self.tuner_ref
+    def get_tuner_ref(self, offset):
+        return self.tuner_ref + offset
+
+    def get_flute_key(self):
+        return self.key
+
+    def get_flute_octave(self):
+        return self.octave
 
     def set_tuner_ref(self):
         self.tuner_ref = int(input('Enter tuner Reference: '))
@@ -94,7 +100,7 @@ class MyFlute:
                     drone_width = (bore_diameter * 2) + (wall_thickness * 4)
                     drone_bore_center = (bore_diameter / 2) + wall_thickness
                     return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                               single_width, drone_width, drone_bore_center, tuner_ref)
+                               single_width, drone_width, drone_bore_center, key, octave, tuner_ref)
 
         if not row:
             bore_diameter = float(input('Enter bore diameter: '))
@@ -108,7 +114,7 @@ class MyFlute:
             drone_width = (bore_diameter * 2) + (wall_thickness * 4)
             drone_bore_center = (bore_diameter / 2) + wall_thickness
             return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                       single_width, drone_width, drone_bore_center, tuner_ref)
+                       single_width, drone_width, drone_bore_center, key, octave, tuner_ref)
 
     def get_finger_hole_placements(self):
         self.fh_values.clear()

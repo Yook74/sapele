@@ -29,6 +29,7 @@ def main():
     flute = MyFlute.flute_key()
     print(flute.print_sizing())
 
+    ambient_temp = 72
     while True:
 
         print(f'****************************')
@@ -53,9 +54,13 @@ def main():
             print(f'----------------------------\n')
         if num_select == 3:
             flute.set_tuner_ref()
+            print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
         if num_select == 4:
+            print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
             flute.get_finger_hole_placements()
             flute.print_fh_placement()
+
+        print(flute.get_tuner_ref(get_temp_offset(float(ambient_temp)))
 
 
 if __name__ == '__main__':
