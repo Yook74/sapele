@@ -60,7 +60,7 @@ def main():
             flute.get_finger_hole_placements()
             flute.print_fh_placement()
 
-        print(flute.get_tuner_ref(get_temp_offset(float(ambient_temp)))
+        print(flute.get_tuner_ref(get_temp_offset(float(ambient_temp))))
 
 
 if __name__ == '__main__':

@@ -53,7 +53,7 @@ class MyFlute:
         fudge_factor = float(input('Enter fudge factor: '))
         bore_length = bore_diameter * dl_factor
         blank_length = bore_length + 7
-        blank_height = bore_diameter + wall_thickness + fudge_factor
+        blank_height = (bore_diameter/2) + wall_thickness + fudge_factor
         single_width = bore_diameter + (wall_thickness * 2) + fudge_factor
         drone_width = (bore_diameter * 2) + (wall_thickness * 4)
         drone_bore_center = (bore_diameter / 2) + wall_thickness
@@ -95,7 +95,7 @@ class MyFlute:
                     fudge = float(dict.pop(row, 'fudge'))
                     bore_length = bore_diameter * dl_factor
                     blank_length = bore_length + 7
-                    blank_height = bore_diameter + wall_thickness + fudge
+                    blank_height = (bore_diameter/2) + wall_thickness + fudge
                     single_width = bore_diameter + (wall_thickness * 2) + fudge
                     drone_width = (bore_diameter * 2) + (wall_thickness * 4)
                     drone_bore_center = (bore_diameter / 2) + wall_thickness
@@ -109,7 +109,7 @@ class MyFlute:
             fudge_factor = float(input('Enter fudge factor: '))
             bore_length = bore_diameter * dl_factor
             blank_length = bore_length + 7
-            blank_height = bore_diameter + wall_thickness + fudge_factor
+            blank_height = (bore_diameter/2) + wall_thickness + fudge_factor
             single_width = bore_diameter + (wall_thickness * 2) + fudge_factor
             drone_width = (bore_diameter * 2) + (wall_thickness * 4)
             drone_bore_center = (bore_diameter / 2) + wall_thickness
@@ -119,7 +119,7 @@ class MyFlute:
     def get_finger_hole_placements(self):
         self.fh_values.clear()
         self.bore_length = float(input('Enter the actual bore length: '))
-        finger_hole_percents = [.68, .62, .56, .48, .40, .33]
+        finger_hole_percents = [68.5, 62, 55, 47.5, 39, 30.5]
         for percent in finger_hole_percents:
             self.fh_values.append(percent * self.bore_length)
 
