@@ -52,12 +52,10 @@ def get_temp_offset(ambient_temp_f: float) -> float:
 
 def main():
 
-
     ambient_temp = get_value_from_user('Enter the ambient temperature in Deg: ', type_=int, default=72)
-    freq_ref = get_value_from_user('Enter Reference Frequency in Hz: ', type_=int, default=440)
+    #  freq_ref = get_value_from_user('Enter Reference Frequency in Hz: ', type_=int, default=440)
     freq_offset = get_temp_offset(ambient_temp)
-    tuning_freq = freq_ref + freq_offset
-
+    tuning_freq = self.freq_ref + freq_offset
 
     print(f'----------------------------')
     print(f'Tuner reference = {tuning_freq:.1f} Hz')

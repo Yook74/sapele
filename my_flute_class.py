@@ -5,7 +5,7 @@ import linecache
 class MyFlute:
     """ """
     def __init__(self, bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                 single_width, drone_width, drone_bore_center):
+                 single_width, drone_width, drone_bore_center, tuner_ref):
         self.bore_length = bore_length
         self.bore_diameter = bore_diameter
         self.wall_thickness = wall_thickness
@@ -19,6 +19,7 @@ class MyFlute:
         self.key = str()
         self.octave = int()
         self.fudge_factor = float()
+        self.tuner_ref = int(tuner_ref)
 
     def print_sizing(self):
         print(f'----------------------------')
@@ -29,6 +30,14 @@ class MyFlute:
         print(f'DRONE_WIDTH: {self.drone_width:.2f}')
         print(f'DRONE_BORE_CENTER: {self.drone_bore_center:.3f}')
         print(f'----------------------------')
+
+    def get_tuner_ref(self):
+        return self.tuner_ref
+
+    def set_tuner_ref(self):
+        self.tuner_ref = int(input('Enter tuner Reference: '))
+        if not self.tuner_ref:
+            self.tuner_ref = 440
 
     @classmethod
     def get_blank_sizing(cls):
@@ -42,19 +51,30 @@ class MyFlute:
         single_width = bore_diameter + (wall_thickness * 2) + fudge_factor
         drone_width = (bore_diameter * 2) + (wall_thickness * 4)
         drone_bore_center = (bore_diameter / 2) + wall_thickness
+        tuner_ref = int(input('Enter tuner Reference: '))
+
+        if not tuner_ref:
+            tuner_ref = 440
+
         return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                   single_width, drone_width, drone_bore_center)
+                   single_width, drone_width, drone_bore_center, tuner_ref)
 
     def print_fh_placement(self):
         for index, holes in enumerate(self.fh_values):
             print(f'FH_{index+1}: {holes:.2f}')
 
+
     @classmethod
     def flute_key(cls):
         key = input('Enter the flute Key: ')
-        octave = input('Enter the key Octave: ')
+        octave = input('Enter the key Octave (default = 4): ')
+        tuner_ref = (input('Enter tuner Reference in Hz (default = 440): '))
+
+        if not tuner_ref:
+            tuner_ref = '440'
+
         if not octave:
-            octave = 4
+            octave = '4'
 
         my_key = key + '_' + octave
         with open('records/initialSetup.csv') as data:
@@ -74,7 +94,7 @@ class MyFlute:
                     drone_width = (bore_diameter * 2) + (wall_thickness * 4)
                     drone_bore_center = (bore_diameter / 2) + wall_thickness
                     return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                               single_width, drone_width, drone_bore_center)
+                               single_width, drone_width, drone_bore_center, tuner_ref)
 
         if not row:
             bore_diameter = float(input('Enter bore diameter: '))
@@ -88,7 +108,7 @@ class MyFlute:
             drone_width = (bore_diameter * 2) + (wall_thickness * 4)
             drone_bore_center = (bore_diameter / 2) + wall_thickness
             return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                       single_width, drone_width, drone_bore_center)
+                       single_width, drone_width, drone_bore_center, tuner_ref)
 
     def get_finger_hole_placements(self):
         self.fh_values.clear()
