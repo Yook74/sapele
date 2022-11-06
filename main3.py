@@ -1,4 +1,3 @@
-import tuning
 from math import sqrt
 from my_flute_class import MyFlute
 
@@ -14,6 +13,7 @@ def select_script() -> int:
             return int(value)
         except ValueError:
             print('Invalid Input')
+
 
 def get_temp_offset(ambient_temp_f: float) -> float:
     """
