@@ -1,4 +1,5 @@
 import csv
+from math import sqrt
 import linecache
 
 
@@ -31,7 +32,15 @@ class MyFlute:
         print(f'DRONE_BORE_CENTER: {self.drone_bore_center:.3f}')
         print(f'----------------------------')
 
-    def get_tuner_ref(self, offset):
+    def get_tuner_ref(self):
+
+        self.tuner_ref = (input('Enter tuner Reference in Hz: (default = 440)'))
+        if not self.tuner_ref:
+            self.tuner_ref = 440
+        ambient_temp = float(input('Enter the ambient temperature in Deg (default = 72): '))
+        if not ambient_temp:
+            ambient_temp = 72
+        offset = (12600.535 * sqrt((ambient_temp + 459.4) / 459.4)) / 30.80006182 - 440
         return self.tuner_ref + offset
 
     def get_flute_key(self):
@@ -40,10 +49,6 @@ class MyFlute:
     def get_flute_octave(self):
         return self.octave
 
-    def set_tuner_ref(self):
-        self.tuner_ref = int(input('Enter tuner Reference: '))
-        if not self.tuner_ref:
-            self.tuner_ref = 440
 
     @classmethod
     def get_blank_sizing(cls):
