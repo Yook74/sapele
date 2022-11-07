@@ -123,7 +123,7 @@ class MyFlute:
     def get_finger_hole_placements(self):
         self.fh_values.clear()
         self.bore_length = float(input('Enter the actual bore length: '))
-        finger_hole_percents = [68.5, 62, 55, 47.5, 39, 30.5]
+        finger_hole_percents = [.685, .62, .55, .475, .39, .305]
         for percent in finger_hole_percents:
             self.fh_values.append(percent * self.bore_length)
 

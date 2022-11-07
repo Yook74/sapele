@@ -6,6 +6,7 @@ import measurement_data_entry
 import fh_data_entry
 
 
+
 def select_script() -> int:
     """Selects script to run"""
     while True:

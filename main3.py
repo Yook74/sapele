@@ -1,3 +1,4 @@
+import scales
 from math import sqrt
 from os import system
 from my_flute_class import MyFlute
@@ -26,47 +27,52 @@ def get_temp_offset(ambient_temp_f: float) -> float:
     return offset_calc
 
 
-def spacing():
-    for lines in range(10):
+def spacing(nums):
+    for lines in range(nums):
         print()
+
 
 def main():
     flute = MyFlute.flute_key()
     print(flute.print_sizing())
 
     while True:
-
         print(f'****************************')
         print(f'1. Get Blank Sizing        *')
         print(f'2. Get FH Placement        *')
         print(f'3. Get Tuner Ref Offset    *')
-        print(f'4. ??                      *')
+        print(f'4. Get Scale Notes         *')
         print(f'****************************')
+
+        spacing(5)
 
         num_select = select_script()
 
         if num_select == 1:
-            spacing()
+            spacing(10)
             flute.print_sizing()
             input('...')
-            spacing()
+            spacing(10)
         if num_select == 2:
-            spacing()
+            spacing(10)
             print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
             flute.get_finger_hole_placements()
             flute.print_fh_placement()
             input('...')
-            spacing()
+            spacing(10)
         if num_select == 3:
-            spacing()
+            spacing(10)
             tuner_ref = flute.get_tuner_ref()
             print(f'----------------------------')
             print(f'Tuner reference = {tuner_ref:.1f} Hz')
             print(f'----------------------------\n')
             input('...')
-            spacing()
+            spacing(10)
         if num_select == 4:
-            print()
+            spacing(20)
+            scales.main()
+            input('...')
+            spacing(20)
 
 
 if __name__ == '__main__':

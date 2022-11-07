@@ -7,7 +7,7 @@ sess = get_session()
 def get_key() -> Note:
     """Allows the user to enter a note which will be the key of the scale"""
     while True:
-        name = input('Enter a key (for example, C#): ')
+        name = input('Enter the flute key: ')
 
         try:
             return Note.from_name(sess, name)
@@ -36,17 +36,24 @@ def get_scale() -> Scale:
             return scale
 
 
+def spacing(nums):
+    for lines in range(nums):
+        print()
+
+
 def main():
 
     try:
 
+        print()
         key = get_key()
         scale = get_scale()
+        spacing(20)
         print(f'----------------------------')
         print(
             ', '.join([note.name for note in scale.get_notes(key)])
             )
-        print(f'----------------------------\n')
+        print(f'----------------------------')
 
     finally:
         sess.close()

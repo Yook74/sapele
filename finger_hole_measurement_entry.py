@@ -42,6 +42,5 @@ def get_value_from_user(prompt: str, type_: Type = str, default=None, validation
 
 def main():
 
-
-if __name__ == '__main__':
-    main()
+    if __name__ == '__main__':
+         main()
