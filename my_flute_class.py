@@ -33,15 +33,14 @@ class MyFlute:
         print(f'----------------------------')
 
     def get_tuner_ref(self):
-
-        self.tuner_ref = (input('Enter tuner Reference in Hz: (default = 440)'))
+        self.tuner_ref = input('Enter tuner Reference in Hz: (default = 440)')
         if not self.tuner_ref:
             self.tuner_ref = 440
-        ambient_temp = float(input('Enter the ambient temperature in Deg (default = 72): '))
+        ambient_temp = input('Enter the ambient temperature in Deg (default = 72): ')
         if not ambient_temp:
-            ambient_temp = 72
-        offset = (12600.535 * sqrt((ambient_temp + 459.4) / 459.4)) / 30.80006182 - 440
-        return self.tuner_ref + offset
+            ambient_temp = float(72)
+        offset = (12600.535 * sqrt((float(ambient_temp) + 459.4) / 459.4)) / 30.80006182 - 440
+        return float(self.tuner_ref) + offset
 
     def get_flute_key(self):
         return self.key
