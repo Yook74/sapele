@@ -48,7 +48,6 @@ class MyFlute:
     def get_flute_octave(self):
         return self.octave
 
-
     @classmethod
     def get_blank_sizing(cls):
         bore_diameter = float(input('Enter bore diameter: '))

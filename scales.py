@@ -6,14 +6,14 @@ sess = get_session()
 
 def get_key() -> Note:
     """Allows the user to enter a note which will be the key of the scale"""
+
     while True:
-        name = input('Enter the flute key: ')
+        name = input('Enter the flute key: ').upper()
 
         try:
             return Note.from_name(sess, name)
         except ValueError:
             print('Invalid key name')
-
 
 def get_scale() -> Scale:
     """Allows the user to choose a scale from the database and returns which scale they chose"""
@@ -50,14 +50,16 @@ def main():
         scale = get_scale()
         spacing(20)
         print(f'----------------------------')
-        print(
-            ', '.join([note.name for note in scale.get_notes(key)])
-            )
+        for note in range(6):
+            fh_hole = (5 - int(note))
+            print(f' FH {fh_hole + 1} - {scale.get_notes(key)[fh_hole].name}')
+        #  print(
+        #    ', '.join([note.name for note in scale.get_notes(key)])
+        #   )
         print(f'----------------------------')
 
     finally:
         sess.close()
-
 
 if __name__ == '__main__':
     main()

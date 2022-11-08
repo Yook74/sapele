@@ -33,8 +33,7 @@ def spacing(nums):
 
 def main():
     flute = MyFlute.flute_key()
-    flute.print_sizing()
-    input(':::')
+    # flute.print_sizing()
     spacing(10)
 
     while True:
@@ -45,7 +44,7 @@ def main():
         print(f'4. Get Scale Notes         *')
         print(f'****************************')
 
-        spacing(3)
+        spacing(2)
 
         num_select = select_script()
 
@@ -58,7 +57,9 @@ def main():
             spacing(20)
             print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
             flute.get_finger_hole_placements()
+            print(f'----------------------------')
             flute.print_fh_placement()
+            print(f'----------------------------')
             input('...')
             spacing(10)
         if num_select == 3:
@@ -74,7 +75,6 @@ def main():
             scales.main()
             input('...')
             spacing(20)
-
 
 if __name__ == '__main__':
     main()
