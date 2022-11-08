@@ -1,6 +1,5 @@
 import scales
 from math import sqrt
-from os import system
 from my_flute_class import MyFlute
 
 
@@ -34,7 +33,9 @@ def spacing(nums):
 
 def main():
     flute = MyFlute.flute_key()
-    print(flute.print_sizing())
+    flute.print_sizing()
+    input(':::')
+    spacing(10)
 
     while True:
         print(f'****************************')
@@ -44,24 +45,24 @@ def main():
         print(f'4. Get Scale Notes         *')
         print(f'****************************')
 
-        spacing(5)
+        spacing(3)
 
         num_select = select_script()
 
         if num_select == 1:
-            spacing(10)
+            spacing(20)
             flute.print_sizing()
             input('...')
             spacing(10)
         if num_select == 2:
-            spacing(10)
+            spacing(20)
             print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
             flute.get_finger_hole_placements()
             flute.print_fh_placement()
             input('...')
             spacing(10)
         if num_select == 3:
-            spacing(10)
+            spacing(20)
             tuner_ref = flute.get_tuner_ref()
             print(f'----------------------------')
             print(f'Tuner reference = {tuner_ref:.1f} Hz')

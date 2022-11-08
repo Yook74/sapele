@@ -76,7 +76,7 @@ class MyFlute:
 
     @classmethod
     def flute_key(cls):
-        key = input('Enter the flute Key: ')
+        key = input('Enter the flute Key: ').upper()
         octave = input('Enter the key Octave (default = 4): ')
         tuner_ref = (input('Enter tuner Reference in Hz (default = 440): '))
 
