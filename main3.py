@@ -31,8 +31,44 @@ def spacing(nums):
         print()
 
 
+def blank_size(flute):
+    spacing(20)
+    flute.print_sizing()
+    input('...')
+    spacing(10)
+
+
+def fh_placement(flute):
+    spacing(20)
+    print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
+    flute.get_finger_hole_placements()
+    print(f'----------------------------')
+    flute.print_fh_placement()
+    print(f'----------------------------')
+    input('...')
+    spacing(10)
+
+
+def get_ref_offset(flute):
+    spacing(20)
+    tuner_ref = flute.get_tuner_ref()
+    print(f'----------------------------')
+    print(f'Tuner reference = {tuner_ref:.1f} Hz')
+    print(f'----------------------------\n')
+    input('...')
+    spacing(10)
+
+
+def get_scale_notes(flute):
+    spacing(20)
+    scales.main(flute.get_flute_key())
+    input('...')
+    spacing(20)
+
+
 def main():
     flute = MyFlute.flute_key()
+    print(flute.get_flute_key())
     # flute.print_sizing()
     spacing(10)
 
@@ -49,32 +85,17 @@ def main():
         num_select = select_script()
 
         if num_select == 1:
-            spacing(20)
-            flute.print_sizing()
-            input('...')
-            spacing(10)
+            blank_size(flute)
+
         if num_select == 2:
-            spacing(20)
-            print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
-            flute.get_finger_hole_placements()
-            print(f'----------------------------')
-            flute.print_fh_placement()
-            print(f'----------------------------')
-            input('...')
-            spacing(10)
+            fh_placement(flute)
+
         if num_select == 3:
-            spacing(20)
-            tuner_ref = flute.get_tuner_ref()
-            print(f'----------------------------')
-            print(f'Tuner reference = {tuner_ref:.1f} Hz')
-            print(f'----------------------------\n')
-            input('...')
-            spacing(10)
+            get_ref_offset(flute)
+
         if num_select == 4:
-            spacing(20)
-            scales.main()
-            input('...')
-            spacing(20)
+            get_scale_notes(flute)
+
 
 if __name__ == '__main__':
     main()

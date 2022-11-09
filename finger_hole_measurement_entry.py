@@ -36,11 +36,13 @@ def get_value_from_user(prompt: str, type_: Type = str, default=None, validation
                 return value
             else:
                 print('invalid input')
-        else:
-            return value
 
 
 def main():
 
-    if __name__ == '__main__':
-         main()
+    get_value_from_user('Enter')
+    print('test')
+
+
+if __name__ == '__main__':
+    main()
