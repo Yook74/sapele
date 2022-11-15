@@ -9,6 +9,8 @@ def get_key() -> Note:
 
     while True:
         name = input('Enter the flute key: ').upper()
+        if not len(name) == 1:
+            name = name[0] + (name[1].lower())
 
         try:
             return Note.from_name(sess, name)
