@@ -33,6 +33,7 @@ def spacing(nums):
 
 def blank_size(flute):
     spacing(20)
+    flute.get_blank_sizing()
     flute.print_sizing()
     input('...')
     spacing(10)
