@@ -78,6 +78,7 @@ def main():
         print(f'2. Get FH Placement        *')
         print(f'3. Get Tuner Ref Offset    *')
         print(f'4. Get Scale Notes         *')
+        print(f'5. Change Key              *')
         print(f'****************************')
 
         spacing(2)
@@ -96,7 +97,12 @@ def main():
         if num_select == 4:
             get_scale_notes(flute)
 
+        if num_select == 5:
+            spacing(20)
+            flute = MyFlute.flute_key()
+            print(flute.get_flute_key())
+            spacing(10)
+
 
 if __name__ == '__main__':
     main()
-
