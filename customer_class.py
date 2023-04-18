@@ -7,6 +7,7 @@ class Customer:
 
     def input_order(self):
         """ name, date, type, Key, Octave, tuning, wood, price """
+        input('Enter Customer Name: ')
         pass
 
     def show_orders(self):

@@ -69,7 +69,6 @@ def get_scale_notes(flute):
 def main():
     flute = MyFlute.flute_key()
     print(flute.get_flute_key())
-    # flute.print_sizing()
     spacing(10)
 
     while True:

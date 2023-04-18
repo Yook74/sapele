@@ -17,6 +17,7 @@ class MyFlute:
         self.drone_width = drone_width
         self.drone_bore_center = drone_bore_center
         self.fh_values = []
+        self.fh_delta_values = []
         self.key = key
         self.octave = octave
         self.fudge_factor = float()

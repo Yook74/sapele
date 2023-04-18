@@ -79,11 +79,3 @@ def main(my_key):
 
     finally:
         sess.close()
-
-
-if __name__ == '__main__':
-    main()
-
-#  print(
-#    ', '.join([note.name for note in scale.get_notes(key)])
-#   )
