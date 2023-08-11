@@ -1,10 +1,12 @@
 from typing import List
+import datetime
 
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, REAL
 from sqlalchemy.orm.session import object_session, Session
 
 Base = declarative_base()
+date = datetime.date
 
 
 class Note(Base):
@@ -17,6 +19,7 @@ class Note(Base):
     def from_offset(cls, session: Session, offset: int):
         return session.query(cls).filter_by(offset=offset % 12).first()
 
+
     @classmethod
     def from_name(cls, session: Session, name: str):
         note = session.query(cls).filter_by(name=name.upper()).first()
@@ -24,7 +27,6 @@ class Note(Base):
             raise ValueError(f'No note found with the name "{name}"')
         else:
             return note
-
 
 
 class Scale(Base):
@@ -51,3 +53,40 @@ class ScaleOffset(Base):
     offset = Column(Integer, nullable=False)
 
 
+class Customer(Base):
+    __tablename__ = 'customer'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(50),  nullable=False)
+    last_name = Column(String(50),  nullable=False)
+    email = Column(String(125))
+    address = Column(String(150))
+    city = Column(String(50))
+    state = Column(String(50))
+    postal_code = Column(String(10))
+    country = Column(String(50))
+
+
+class Orders(Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customer.id'), nullable=False)
+    order_date = Column(String(50), nullable=False)
+    discount = Column(REAL(2), nullable=False)
+    total_price = Column(REAL(2), nullable=False)
+    ship_date = Column(String(50))
+
+
+class Flute(Base):
+    __tablename__ = 'flute'
+    id = Column(Integer, primary_key=True)
+    # order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    # customer_id = Column(Integer, ForeignKey('customer.id'), nullable=False)
+    order_id = Column(Integer, nullable=False)
+    customer_id = Column(Integer, nullable=False)
+    flute_type = Column(String(50), nullable=False)
+    key = Column(String(5), nullable=False)
+    octave = Column(Integer, nullable=False)
+    scale_name = Column(String(50), nullable=False)
+    tuning_ref = Column(Integer, nullable=False)
+    flute_wood = Column(String(50))
+    block_wood = Column(String(50))
