@@ -21,7 +21,7 @@ def select_script() -> int:
 def update_my_orders(cust_id):
 
     while True:
-        spacing(2)
+        spacing(10)
         print()
         print('****************************')
         print('1. Update Customer         *')
@@ -87,7 +87,7 @@ def create_customer():
         entry_list = ('email', 'address', 'city', 'state', 'postal_code', 'country')
 
         for name in entry_list:
-            entries.append(input(f'Enter {name}: '))
+            entries.append(input(f'Enter {name}: ').capitalize())
 
         sess.add(
             Customer(first_name=first, last_name=last, email=entries[0],
@@ -115,7 +115,11 @@ def take_order(cust_id) -> int:
     entry_list = ('order_date', 'total_price', 'discount', 'ship_date')
 
     for name in entry_list:
-        entries.append(input(f'Enter {name}: '))
+        entry = input(f'Enter {name}: ')
+        while not entry:
+            print('Entry cannot be Null!')
+            entry = input(f'Enter {name}: ')
+        entries.append(entry)
 
     sess.add(Orders(customer_id=cust_id, order_date=entries[0], total_price=entries[1], discount=entries[2],
              ship_date=entries[3]))
@@ -131,7 +135,7 @@ def flute(order_id, cust_id):
     entry_list = ('flute_type', 'key', 'octave', 'scale_name', 'tuning_ref', 'flute_wood', 'block_wood')
 
     for name in entry_list:
-        entries.append(input(f'Enter {name}: '))
+        entries.append(input(f'Enter {name}: ').capitalize())
 
     sess.add(Flute(order_id=order_id, customer_id=cust_id, flute_type=entries[0], key=entries[1], octave=entries[2],
                    scale_name=entries[3], tuning_ref=entries[4], flute_wood=entries[5], block_wood=entries[6]))
@@ -182,10 +186,7 @@ def update_customer(cust_id):
         item = input('Select item number to modify: ')
         if not item:
             break
-        if item == 2 or 3:
-            updated_item = input('Enter updated value: ').capitalize()
-        else:
-            updated_item = input('Enter updated value: ')
+        updated_item = input('Enter updated value: ').capitalize()
         spacing(1)
         u = update(Customer)
         u = u.values({items[int(item)]: updated_item})
@@ -208,7 +209,7 @@ def update_flute(cust_id):
         item = input('Select item number to modify: ')
         if not item:
             break
-        updated_item = input('Enter updated value: ')
+        updated_item = input('Enter updated value: ').capitalize()
         spacing(1)
         u = update(Flute)
         u = u.values({items[int(item)]: updated_item})
