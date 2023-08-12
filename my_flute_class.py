@@ -49,34 +49,35 @@ class MyFlute:
     def get_flute_octave(self):
         return self.octave
 
-    @classmethod
-    def get_blank_sizing(cls):
-        bore_diameter = float(input('Enter bore diameter: '))
-        wall_thickness = float(input('Enter wall thickness: '))
-        dl_factor = float(input('Enter wall D/L ratio: '))
-        fudge_factor = float(input('Enter fudge factor: '))
-        bore_length = bore_diameter * dl_factor
-        blank_length = bore_length + 7
-        blank_height = (bore_diameter/2) + wall_thickness + fudge_factor
-        single_width = bore_diameter + (wall_thickness * 2) + fudge_factor
-        drone_width = (bore_diameter * 2) + (wall_thickness * 4)
-        drone_bore_center = (bore_diameter / 2) + wall_thickness
-        tuner_ref = int(input('Enter tuner Reference: '))
-
-        if not tuner_ref:
-            tuner_ref = 440
-
-        return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
-                   single_width, drone_width, drone_bore_center, tuner_ref)
-
     def print_fh_placement(self):
         for index, holes in enumerate(self.fh_values):
             print(f'FH_{index+1}: {holes:.2f}')
 
-
     @classmethod
     def flute_key(cls):
-        key = input('Enter the flute Key: ').upper()
+        keys = ['C', 'B', 'Bb', 'A#', 'A', 'Ab', 'G#', 'G', 'Gb', 'F#', 'F', 'E', 'Eb', 'D#', 'D', 'Db', 'C#']
+        check = False
+        key = ''
+        while not check:
+            key = input('Enter the flute Key: ').upper()
+            if not len(key) == 1:
+                key = key[0] + (key[1].lower())
+            if key not in keys:
+                print('Invalid Key...')
+                check = False
+            else:
+                if key == 'Bb':
+                    key = 'A#'
+                if key == 'Ab':
+                    key = 'G#'
+                if key == 'Gb':
+                    key = 'F#'
+                if key == 'Eb':
+                    key = 'D#'
+                if key == 'Db':
+                    key = 'C#'
+                check = True
+
         octave = input('Enter the key Octave (default = 4): ')
         tuner_ref = (input('Enter tuner Reference in Hz (default = 440): '))
 
@@ -101,7 +102,7 @@ class MyFlute:
                     blank_length = bore_length + 7
                     blank_height = (bore_diameter/2) + wall_thickness + fudge
                     single_width = bore_diameter + (wall_thickness * 2) + fudge
-                    drone_width = (bore_diameter * 2) + (wall_thickness * 4)
+                    drone_width = (bore_diameter * 2) + (wall_thickness * 3) + fudge
                     drone_bore_center = (bore_diameter / 2) + wall_thickness
                     return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
                                single_width, drone_width, drone_bore_center, key, octave, tuner_ref)
@@ -115,7 +116,7 @@ class MyFlute:
             blank_length = bore_length + 7
             blank_height = (bore_diameter/2) + wall_thickness + fudge_factor
             single_width = bore_diameter + (wall_thickness * 2) + fudge_factor
-            drone_width = (bore_diameter * 2) + (wall_thickness * 4)
+            drone_width = (bore_diameter * 2) + (wall_thickness * 3) + fudge_factor
             drone_bore_center = (bore_diameter / 2) + wall_thickness
             return cls(bore_length, bore_diameter, wall_thickness, dl_factor, blank_length, blank_height,
                        single_width, drone_width, drone_bore_center, key, octave, tuner_ref)

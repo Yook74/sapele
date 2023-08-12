@@ -6,6 +6,7 @@ from database.connection import get_session, get_engine
 
 Base.metadata.drop_all(get_engine())
 Base.metadata.create_all(get_engine())
+
 session = get_session()
 
 notes = [

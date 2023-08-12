@@ -1,4 +1,4 @@
-from database.models import Note, Scale
+from database.models import Note, Scale, Customer
 from database.connection import get_session
 
 sess = get_session()
@@ -55,7 +55,6 @@ def spacing(nums):
 
 
 def main(my_key):
-
     try:
         print(f'Using Key of {my_key}')
         change_key = input('Change Key?: ').upper()
@@ -79,3 +78,7 @@ def main(my_key):
 
     finally:
         sess.close()
+
+
+if __name__ == '__main__':
+    main()
