@@ -79,9 +79,9 @@ class Orders(Base):
 class Flute(Base):
     __tablename__ = 'flute'
     id = Column(Integer, primary_key=True)
-    # order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
     # customer_id = Column(Integer, ForeignKey('customer.id'), nullable=False)
-    order_id = Column(Integer, nullable=False)
+    # order_id = Column(Integer, nullable=False)
     customer_id = Column(Integer, nullable=False)
     flute_type = Column(String(50), nullable=False)
     key = Column(String(5), nullable=False)
@@ -90,3 +90,20 @@ class Flute(Base):
     tuning_ref = Column(Integer, nullable=False)
     flute_wood = Column(String(50))
     block_wood = Column(String(50))
+    # ship_date = Column(String(50), ForeignKey('orders.ship_date'))
+
+
+class FHP(Base):
+    __tablename__ = 'fhp'
+    id = Column(Integer, primary_key=True)
+    key = Column(String(5), nullable=False)
+    octave = Column(Integer, nullable=False)
+    bore_length = Column(Integer, nullable=False)
+    fh_1 = Column(REAL(2), nullable=False)
+    fh_2 = Column(REAL(2), nullable=False)
+    fh_3 = Column(REAL(2), nullable=False)
+    fh_4 = Column(REAL(2), nullable=False)
+    fh_5 = Column(REAL(2), nullable=False)
+    fh_6 = Column(REAL(2), nullable=False)
+    fh_7 = Column(REAL(2), nullable=False)
+

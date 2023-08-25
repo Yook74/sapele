@@ -1,6 +1,7 @@
 import csv
 from math import sqrt
 import linecache
+import update_fhp
 
 
 class MyFlute:
@@ -124,7 +125,20 @@ class MyFlute:
     def get_finger_hole_placements(self):
         self.fh_values.clear()
         self.bore_length = float(input('Enter the actual bore length: '))
-        finger_hole_percents = [.685, .62, .55, .475, .39, .305]
-        for percent in finger_hole_percents:
-            self.fh_values.append(percent * self.bore_length)
+        while True:
+            selection = (input('(1) Get FHP Values, (2) Update FHP Values: '))
+
+            if selection == '1':
+                finger_hole_percents = update_fhp.get_fhp_values(self.key, self.octave)
+                for percent in finger_hole_percents:
+                    self.fh_values.append(percent * self.bore_length)
+                self.print_fh_placement()
+            if selection == '2':
+                update_fhp.update_fhp_values(self.key, self.octave, self.bore_length)
+                self.print_fh_placement()
+
+            if not selection:
+                break
+
+
 
