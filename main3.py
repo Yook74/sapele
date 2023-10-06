@@ -1,10 +1,10 @@
 import scales
 import datetime
 from math import sqrt
-
 import update_fhp
 from my_flute_class import MyFlute
 import take_order
+import save_percents
 
 
 def select_script() -> int:
@@ -40,10 +40,6 @@ def blank_size(flute):
     flute.print_sizing()
     input(':')
     spacing(10)
-
-
-def update_fh_placement(flute):
-    spacing(20)
 
 
 def fh_placement(flute):
@@ -87,6 +83,7 @@ def craft_flute():
         print(f'3. Get Scale Notes         *')
         print(f'4. Change Key              *')
         print(f'5. FH Placement            *')
+        print(f'6. Export FHP table        *')
         print(f'****************************')
 
         selection = select_script()
@@ -108,6 +105,10 @@ def craft_flute():
 
         if selection == 5:
             fh_placement(flute)
+
+        if selection == 6:
+            save_percents.main()
+            spacing(10)
 
         if not selection:
             break

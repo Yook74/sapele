@@ -134,8 +134,13 @@ class MyFlute:
                 for percent in finger_hole_percents:
                     self.fh_values.append(percent * self.bore_length)
                 self.print_fh_placement()
+
             if selection == '2':
                 update_fhp.update_fhp_values(self.key, self.octave, self.bore_length)
+                print()
+
+            if selection == '3':
+                update_fhp.add_fhp_values()
                 print()
 
             if not selection:
