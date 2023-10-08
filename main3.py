@@ -1,11 +1,10 @@
 import scales
 import datetime
 from math import sqrt
-
 import update_fhp
 from my_flute_class import MyFlute
 import take_order
-# from database.models import Customer
+import save_percents
 
 
 def select_script() -> int:
@@ -44,17 +43,13 @@ def blank_size(flute):
     spacing(10)
 
 
-def update_fh_placement(flute):
-    spacing(20)
-
-
 def fh_placement(flute):
     spacing(20)
     print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
     flute.get_finger_hole_placements()
     print(f'----------------------------')
-    # flute.print_fh_placement()
-    # print(f'----------------------------')
+    flute.print_fh_placement()
+    print(f'----------------------------')
     # input('...')
     spacing(10)
 
@@ -81,7 +76,6 @@ def craft_flute():
     flute = MyFlute.flute_key()
     spacing(2)
 
-
     while True:
         print(f'< Key {flute.get_flute_key()} >')
         print(f'****************************')
@@ -90,9 +84,8 @@ def craft_flute():
         print(f'3. Get Scale Notes         *')
         print(f'4. Change Key              *')
         print(f'5. FH Placement            *')
+        print(f'6. Export FHP table        *')
         print(f'****************************')
-
-        spacing(2)
 
         selection = select_script()
 
@@ -113,6 +106,10 @@ def craft_flute():
 
         if selection == 5:
             fh_placement(flute)
+
+        if selection == 6:
+            save_percents.main()
+            spacing(10)
 
         if not selection:
             break

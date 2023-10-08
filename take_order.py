@@ -396,7 +396,7 @@ def view_sales():
 
         if selection == 3:
             spacing(20)
-            year = input('Enter year: ')
+            year = input('Enter year (yy): ')
             for name in sess.query(Orders).all():
                 if year in name.ship_date:
                     amount += name.total_price - name.discount

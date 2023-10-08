@@ -126,16 +126,22 @@ class MyFlute:
         self.fh_values.clear()
         self.bore_length = float(input('Enter the actual bore length: '))
         while True:
-            selection = (input('(1) Get FHP Values, (2) Update FHP Values: '))
+            self.fh_values.clear()
+            selection = (input('\n(1) Get FHP Values, (2) Update FHP Values: '))
 
             if selection == '1':
                 finger_hole_percents = update_fhp.get_fhp_values(self.key, self.octave)
                 for percent in finger_hole_percents:
                     self.fh_values.append(percent * self.bore_length)
                 self.print_fh_placement()
+
             if selection == '2':
                 update_fhp.update_fhp_values(self.key, self.octave, self.bore_length)
-                self.print_fh_placement()
+                print()
+
+            if selection == '3':
+                update_fhp.add_fhp_values()
+                print()
 
             if not selection:
                 break
