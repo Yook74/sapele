@@ -39,16 +39,16 @@ def update_my_orders(cust_id, first, last):
         if selection == 1:
             update_customer(cust_id)
 
-        if selection == 2:
+        elif selection == 2:
             update_order(cust_id)
 
-        if selection == 3:
+        elif selection == 3:
             update_flute(cust_id)
 
-        if selection == 4:
+        elif selection == 4:
             add_flute_to_order(cust_id, first, last)
 
-        if not selection:
+        elif not selection:
             break
 
 
@@ -335,7 +335,7 @@ def view_orders():
                                       f'Discount: {item.discount}, Date Shipped: {item.ship_date}')
             input('\nPress Enter to continue...')
 
-        if selection == 2:
+        elif selection == 2:
             for item in sess.query(Orders).all():
                 for cust in sess.query(Customer).all():
                     if cust.id == item.customer_id:
@@ -345,7 +345,7 @@ def view_orders():
                               f'Discount: {item.discount}, Date Shipped: {item.ship_date}')
             input('\nPress Enter to continue...')
 
-        if selection == 3:
+        elif selection == 3:
 
             for item in sess.query(Orders).all():
                 for cust in sess.query(Customer).all():
@@ -357,7 +357,7 @@ def view_orders():
                           f' Date Shipped: {item.ship_date}')
             input('\nPress Enter to continue...')
 
-        if not selection:
+        elif not selection:
             break
 
 
@@ -383,7 +383,7 @@ def view_sales():
             print(f'Num Orders: {count}, Total Price: {amount}')
             input('\nPress Enter to continue...')
 
-        if selection == 2:
+        elif selection == 2:
             customer_found, cust_id, first, last = check_for_customer()
             spacing(20)
             if customer_found:
@@ -394,7 +394,7 @@ def view_sales():
             print(f'({first} {last}) Num Orders: {count}, Total Price: {amount}')
             input('\nPress Enter to continue...')
 
-        if selection == 3:
+        elif selection == 3:
             spacing(20)
             year = input('Enter year (yy): ')
             for name in sess.query(Orders).all():
@@ -404,7 +404,7 @@ def view_sales():
             print(f'Num Orders: {count}, Total Price: {amount}')
             input('\nPress Enter to continue...')
 
-        if selection == 4:
+        elif selection == 4:
             spacing(20)
             start, end = get_dates()
             for name in sess.query(Orders).all():
@@ -414,7 +414,7 @@ def view_sales():
             print(f'Num Orders: {count}, Total Price: {amount}')
             input('\nPress Enter to continue...')
 
-        if not selection:
+        elif not selection:
             break
 
 
@@ -439,18 +439,18 @@ def main():
         if selection == 1:
             create_customer()
 
-        if selection == 2:
+        elif selection == 2:
             customer_found, cust_id, first, last = check_for_customer()
             if customer_found:
                 order_id = take_order(cust_id)
                 create_flute(order_id, cust_id)
 
-        if selection == 3:
+        elif selection == 3:
             customer_found, cust_id, first, last = check_for_customer()
             if customer_found:
                 update_my_orders(cust_id, first, last)
 
-        if not selection:
+        elif not selection:
             break
 
 
