@@ -1,10 +1,8 @@
 import scales
 import datetime
-from math import sqrt
-import update_fhp
 from my_flute_class import MyFlute
 import take_order
-import save_percents
+import save_tables
 
 
 def select_script() -> int:
@@ -18,16 +16,6 @@ def select_script() -> int:
             return int(value)
         except ValueError:
             print('Invalid Input')
-
-
-def get_temp_offset(ambient_temp_f: float) -> float:
-    """
-    :param ambient_temp_f: the ambient temperature in degrees F
-    :return: the number of hertz to change the tuning frequency by
-    """
-    offset_calc = (12600.535*sqrt((ambient_temp_f+459.4)/459.4))/30.80006182 - 440
-
-    return offset_calc
 
 
 def spacing(nums):
@@ -48,9 +36,6 @@ def fh_placement(flute):
     print(f'Flute Key: {flute.get_flute_key()}({flute.get_flute_octave()})')
     flute.get_finger_hole_placements()
     print(f'----------------------------')
-    flute.print_fh_placement()
-    print(f'----------------------------')
-    # input('...')
     spacing(10)
 
 
@@ -84,7 +69,7 @@ def craft_flute():
         print(f'3. Get Scale Notes         *')
         print(f'4. Change Key              *')
         print(f'5. FH Placement            *')
-        print(f'6. Export FHP table        *')
+        print(f'6. Export Tables to CSV    *')
         print(f'****************************')
 
         selection = select_script()
@@ -92,26 +77,26 @@ def craft_flute():
         if selection == 1:
             blank_size(flute)
 
-        if selection == 2:
+        elif selection == 2:
             get_ref_offset(flute)
 
-        if selection == 3:
+        elif selection == 3:
             get_scale_notes(flute)
 
-        if selection == 4:
+        elif selection == 4:
             spacing(20)
             flute = MyFlute.flute_key()
             print(flute.get_flute_key())
             spacing(10)
 
-        if selection == 5:
+        elif selection == 5:
             fh_placement(flute)
 
-        if selection == 6:
-            save_percents.main()
+        elif selection == 6:
+            save_tables.main()
             spacing(10)
 
-        if not selection:
+        elif not selection:
             break
 
 
@@ -132,16 +117,16 @@ def main():
         if selection == 1:
             craft_flute()
 
-        if selection == 2:
+        elif selection == 2:
             take_order.main()
 
-        if selection == 3:
+        elif selection == 3:
             take_order.view_orders()
 
-        if selection == 4:
+        elif selection == 4:
             take_order.view_sales()
 
-        if not selection:
+        elif not selection:
             exit()
 
 
