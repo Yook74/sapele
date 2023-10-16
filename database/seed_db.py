@@ -57,7 +57,7 @@ with open('database/orders.csv') as csv_file:
             session.add(Orders(customer_id=col[1],order_date=col[2],discount=col[3],total_price=col[4],
                                ship_date=col[5]))
 
-with open('database/flutes.csv') as csv_file:
+with open('database/flute.csv') as csv_file:
     reader = csv.reader(csv_file)
     for col in reader:
         if reader.line_num > 1:

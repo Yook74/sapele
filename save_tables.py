@@ -23,9 +23,9 @@ def main():
     df.to_csv('database/orders.csv', index=False, header=True)
     time.sleep(.5)
 
-    print('<<< Saving Flutes table to database/flutes.csv >>>')
+    print('<<< Saving Flutes table to database/flute.csv >>>')
     df = pd.read_sql('SELECT * from Flute', conn)
-    df.to_csv('database/flutes.csv', index=False, header=True)
+    df.to_csv('database/flute.csv', index=False, header=True)
     time.sleep(.5)
 
 
