@@ -1,27 +1,33 @@
 import pandas as pd
-import numpy as np
+# import numpy as np
 import plotly.offline as pyo
 import plotly.graph_objects as go
 
-np.random.seed(42)
 
-rand_x = np.random.randint(1,101,100)
-rand_y = np.random.randint(1,101,100)
+# Create a pandas DataFrame from 2010YumaAZ.csv
+df = pd.read_csv('data/2010YumaAZ.csv')
+days = ['TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY','MONDAY']
 
-data = [go.Scatter(x=rand_x,
-                   y=rand_y,
-                   mode='markers',
-                   marker=dict(
-                       size=12,
-                       color='rgb(51,204,153)',
-                       symbol='pentagon',
-                       line={'width':2}
-                   ))]
 
-layout = go.Layout(title='scat plot',
-                   xaxis={'title':'My X Axis'},
-                   yaxis=dict(title='My Y Axis'),
-                   hovermode='closest')
-fig = go.Figure(data=data,layout=layout)
-pyo.plot(fig,filename='scatter.html')
+# Use a for loop (or list comprehension to create traces for the data list)
+data = []
 
+for day in days:
+    # What should go inside this Scatter call?
+    trace = go.Scatter(x=df['LST_TIME'],
+                       y=df[df['DAY']==day]['T_HR_AVG'],
+                       mode='lines',
+                       name=day)
+
+    data.append(trace)
+
+# Define the layout
+
+layout = go.Layout(title='Daily Temp Avgs')
+
+
+
+# Create a fig from data and layout, and plot the fig
+fig = go.Figure(data=data, layout=layout)
+
+pyo.plot(fig)

@@ -2,7 +2,7 @@ import scales
 import datetime
 from my_flute_class import MyFlute
 import take_order
-import save_percents
+import save_tables
 
 
 def select_script() -> int:
@@ -68,7 +68,7 @@ def craft_flute():
         print(f'3. Get Scale Notes         *')
         print(f'4. Change Key              *')
         print(f'5. FH Placement            *')
-        print(f'6. Export FHP table        *')
+        print(f'6. Export Tables to CSV    *')
         print(f'****************************')
 
         selection = select_script()
@@ -92,7 +92,7 @@ def craft_flute():
             fh_placement(flute)
 
         elif selection == 6:
-            save_percents.main()
+            save_tables.main()
             spacing(10)
 
         elif not selection:
