@@ -52,26 +52,18 @@ def update_my_orders(cust_id, first, last):
             break
 
 
-def check_for_customer() -> [bool, int, str]:
+def check_for_customer() -> [int, str, str]:
 
-    done = False
-    cust_id = 0
-    customer_found = True
-    first = ''
-    last = ''
-    while not done:
-        first = input('\nEnter First Name: ').capitalize()
-        if not first:
-            break
-        last = input('Enter Last Name: ').capitalize()
-        cust_id = get_customer_id(first, last)
-        if cust_id:
-            customer_found = True
-            done = True
-        else:
-            customer_found = False
-            print(' !!! No customer found !!!')
-    result = [customer_found, cust_id, first, last]
+    cust_id = ''
+    cust_list = [()]
+    for item in sess.query(Customer).all():
+        print(f'({item.id}) {item.first_name} {item.last_name}')
+        cust_list.append([item.id, item.first_name, item.last_name])
+    cust_id = input('Enter ID Number: ')
+    if not cust_id:
+        result = [0, 'None', 'None']
+    else:
+        result = cust_list[int(cust_id)]
     return result
 
 
@@ -326,23 +318,24 @@ def view_orders():
         spacing(20)
         name = ''
         if selection == 1:
-            customer_found, cust_id, first, last = check_for_customer()
+            cust_id, first, last = check_for_customer()
+            if cust_id == '0':
+                break
             spacing(20)
-            if customer_found:
-                for item in sess.query(Orders).all():
-                    for cust in sess.query(Customer).all():
-                        if cust.id == item.customer_id:
-                            name = f'{cust.first_name} {cust.last_name}'
-                            if item.customer_id == cust_id:
-                                print(f'({name}) ID: {item.id}, Customer ID: {item.customer_id}, '
-                                      f'Order Date: {item.order_date}, Total Price: {item.total_price}, '
-                                      f'Discount: {item.discount}, Date Shipped: {item.ship_date}')
-                                for flute in sess.query(Flute).all():
-                                    if flute.customer_id == cust_id:
-                                        print(f'Customer ID: {flute.customer_id}, Order ID: {flute.order_id}, '
-                                              f'Key: {flute.key}, Type: {flute.flute_type}, Octave: {flute.octave}, '
-                                              f'Scale: {flute.scale_name}, Tuning Ref: {flute.tuning_ref}, '
-                                              f'Body: {flute.flute_wood}, Block: {flute.block_wood}')
+            # if customer_found:
+            for item in sess.query(Orders).all():
+                for cust in sess.query(Customer).all():
+                    if cust.id == item.customer_id:
+                        name = f'{cust.first_name} {cust.last_name}'
+                        if item.customer_id == cust_id:
+                            print(f'({name}) ID: {item.id}, Customer ID: {item.customer_id}, '
+                                  f'Order Date: {item.order_date}, Total Price: {item.total_price}, '
+                                  f'Discount: {item.discount}, Date Shipped: {item.ship_date}')
+                            for flute in sess.query(Flute).all():
+                                if flute.customer_id == cust_id:
+                                    print(f'Key: {flute.key}, Type: {flute.flute_type}, Octave: {flute.octave}, '
+                                          f'Scale: {flute.scale_name}, Tuning Ref: {flute.tuning_ref}, '
+                                          f'Body: {flute.flute_wood}, Block: {flute.block_wood}')
             input('\nPress Enter to continue...')
 
         elif selection == 2:
@@ -394,13 +387,13 @@ def view_sales():
             input('\nPress Enter to continue...')
 
         elif selection == 2:
-            customer_found, cust_id, first, last = check_for_customer()
+            cust_id, first, last = check_for_customer()
             spacing(20)
-            if customer_found:
-                for name in sess.query(Orders).all():
-                    if name.customer_id == cust_id:
-                        amount += name.total_price - name.discount
-                        count += 1
+
+            for name in sess.query(Orders).all():
+                if name.customer_id == cust_id:
+                    amount += name.total_price - name.discount
+                    count += 1
             print(f'({first} {last}) Num Orders: {count}, Total Price: {amount}')
             input('\nPress Enter to continue...')
 
@@ -450,15 +443,13 @@ def main():
             create_customer()
 
         elif selection == 2:
-            customer_found, cust_id, first, last = check_for_customer()
-            if customer_found:
-                order_id = take_order(cust_id)
-                create_flute(order_id, cust_id)
+            cust_id, first, last = check_for_customer()
+            order_id = take_order(cust_id)
+            create_flute(order_id, cust_id)
 
         elif selection == 3:
-            customer_found, cust_id, first, last = check_for_customer()
-            if customer_found:
-                update_my_orders(cust_id, first, last)
+            cust_id, first, last = check_for_customer()
+            update_my_orders(cust_id, first, last)
 
         elif not selection:
             break
