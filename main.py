@@ -56,6 +56,7 @@ def get_scale_notes(flute):
 
 
 def craft_flute():
+
     spacing(10)
     flute = MyFlute.flute_key()
     spacing(2)
