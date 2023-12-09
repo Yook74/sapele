@@ -29,6 +29,7 @@ class MyFlute:
         print(f'BLANK LENGTH: {self.blank_length:.2f}')
         print(f'BLANK HEIGHT: {self.blank_height:.2f}')
         print(f'BORE LENGTH: {self.bore_length:.2f}')
+        print(f'BORE DIAMETER: {self.bore_diameter:.3f}')
         print(f'SINGLE WIDTH: {self.single_width:.2f}')
         print(f'DRONE_WIDTH: {self.drone_width:.2f}')
         print(f'DRONE_BORE_CENTER: {self.drone_bore_center:.3f}')
