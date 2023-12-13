@@ -102,8 +102,7 @@ def create_customer():
 
         sess.add(
             Customer(first_name=first, last_name=last, email=entries[0],
-                     address=entries[1], city=entries[2], state=entries[3], postal_code=entries[4], country=entries[5])
-                 )
+                     address=entries[1], city=entries[2], state=entries[3], postal_code=entries[4], country=entries[5]))
 
         sess.commit()
     else:
@@ -159,7 +158,7 @@ def take_order(cust_id) -> int:
             entries.append(entry)
 
     sess.add(Orders(customer_id=cust_id, order_date=entries[0], total_price=entries[1], discount=entries[2],
-             ship_date=entries[3]))
+                    ship_date=entries[3]))
 
     sess.commit()
     order_id = sess.query(Orders).count()
@@ -201,7 +200,7 @@ def update_order(cust_id):
 def create_flute(order_id, cust_id):
 
     entries = []
-    entry_list = ('flute_type', 'key', 'octave', 'scale_name', 'tuning_ref', 'flute_wood', 'block_wood')
+    entry_list = ('flute_type', 'hand', 'key', 'octave', 'scale_name', 'tuning_ref', 'flute_wood', 'block_wood')
     defaults = ('Single', '', '4', 'Minor pent', '440', '', '')
 
     for name in entry_list:
@@ -213,16 +212,17 @@ def create_flute(order_id, cust_id):
                 entry = defaults[entry_list.index(name)]
             entries.append(entry)
 
-    sess.add(Flute(order_id=order_id, customer_id=cust_id, flute_type=entries[0], key=entries[1], octave=entries[2],
-                   scale_name=entries[3], tuning_ref=entries[4], flute_wood=entries[5], block_wood=entries[6]))
+    sess.add(Flute(order_id=order_id, customer_id=cust_id, flute_type=entries[0], hand=entries[1], key=entries[2],
+                   octave=entries[3], scale_name=entries[4], tuning_ref=entries[5], flute_wood=entries[6],
+                   block_wood=entries[7]))
 
     sess.commit()
 
 
 def update_flute(cust_id):
 
-    items = {1: 'flute_type', 2: 'key', 3: 'octave', 4: 'scale_name', 5: 'tuning_ref', 6: 'flute_wood',
-             7: 'block_wood'}
+    items = {1: 'flute_type', 2: 'hand', 3: 'key', 4: 'octave', 5: 'scale_name', 6: 'tuning_ref', 7: 'flute_wood',
+             8: 'block_wood'}
     while True:
         for cust in sess.query(Customer).all():
             if cust.id == cust_id:
@@ -230,9 +230,9 @@ def update_flute(cust_id):
 
         for name in sess.query(Flute).all():
             if name.customer_id == cust_id:
-                print(f'(Order ID: {name.order_id}, Flute ID: {name.id},  Flute Type: {name.flute_type}, Key: {name.key}, '
-                      f'Octave: {name.octave}, Scale: {name.scale_name}, Tuning Ref: {name.tuning_ref}, '
-                      f'Flute Wood: {name.flute_wood}, Block Wood: {name.block_wood}')
+                print(f'(Order ID: {name.order_id}, Flute ID: {name.id},  Flute Type: {name.flute_type},'
+                      f'Key: {name.key}, Octave: {name.octave}, Scale: {name.scale_name}, '
+                      f'Tuning Ref: {name.tuning_ref}, Flute Wood: {name.flute_wood}, Block Wood: {name.block_wood}')
         print('-------------------------')
         flute_id = (input('\nSelect FLUTE ID number: '))
         if not flute_id:
@@ -240,9 +240,10 @@ def update_flute(cust_id):
 
         for flute in sess.query(Flute).all():
             if flute.id == int(flute_id):
-                print(f'((1) Flute Type: {flute.flute_type}\n(2) Key: {flute.key}\n(3) Octave: {flute.octave}\n'
-                      f'(4) Scale: {flute.scale_name}\n(5) Tuning Ref: {flute.tuning_ref}\n(6) '
-                      f'Flute Wood: {flute.flute_wood}\n(7) Block Wood: {flute.block_wood}')
+                print(f'((1) Flute Type: {flute.flute_type}\n(2) Hand: {flute.hand}\n(3) Key: {flute.key}\n'
+                      f'(4) Octave: {flute.octave}\n(5) Scale: {flute.scale_name}\n'
+                      f'(6) Tuning Ref: {flute.tuning_ref}\n(7) Flute Wood: {flute.flute_wood}\n'
+                      f'(8) Block Wood: {flute.block_wood}')
         print('-------------------------')
 
         item = input('Select item number to modify: ')
@@ -305,6 +306,15 @@ def get_dates():
     return start, end
 
 
+def working_order(cust_id, first, last):
+    for name in sess.query(Orders).all():
+        if name.customer_id == cust_id:
+            amount += name.total_price - name.discount
+            count += 1
+    print(f'({first} {last}) Num Orders: {count}, Total Price: {amount}')
+    input('\nPress Enter to continue...')
+
+
 def view_orders():
     while True:
         spacing(10)
@@ -317,12 +327,12 @@ def view_orders():
         selection = select_script()
         spacing(20)
         name = ''
+        f_id = ''
         if selection == 1:
             cust_id, first, last = check_for_customer()
             if cust_id == '0':
                 break
             spacing(20)
-            # if customer_found:
             for item in sess.query(Orders).all():
                 for cust in sess.query(Customer).all():
                     if cust.id == item.customer_id:
@@ -333,10 +343,23 @@ def view_orders():
                                   f'Discount: {item.discount}, Date Shipped: {item.ship_date}')
                             for flute in sess.query(Flute).all():
                                 if flute.customer_id == cust_id:
-                                    print(f'Key: {flute.key}, Type: {flute.flute_type}, Octave: {flute.octave}, '
-                                          f'Scale: {flute.scale_name}, Tuning Ref: {flute.tuning_ref}, '
-                                          f'Body: {flute.flute_wood}, Block: {flute.block_wood}')
-            input('\nPress Enter to continue...')
+                                    print(f'ID: {flute.id}, Key: {flute.key}, Type: {flute.flute_type}, '
+                                          f'Hand: {flute.hand}, Octave: {flute.octave}, 'f'Scale: {flute.scale_name}, '
+                                          f'Tuning Ref: {flute.tuning_ref}, 'f'Body: {flute.flute_wood}, '
+                                          f'Block: {flute.block_wood}')
+                            f_id = input('\nEnter Flute ID...')
+                            if f_id == '':
+                                break
+                            for flute in sess.query(Flute).all():
+                                if flute.id == int(f_id):
+                                    print(name)
+                                    print('---------------------------------')
+                                    print(f'Key: {flute.key}\n, Type: {flute.flute_type}\n, Hand: {flute.hand}\n, '
+                                          f'Octave: {flute.octave}\n, 'f'Scale: {flute.scale_name}\n, '
+                                          f'uning Ref: {flute.tuning_ref}\n, 'f'Body: {flute.flute_wood}\n, '
+                                          f'Block: {flute.block_wood}')
+                                    print('_________________________________\n')
+            input('Press Enter when done...')
 
         elif selection == 2:
             for item in sess.query(Orders).all():

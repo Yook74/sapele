@@ -1,31 +1,35 @@
-id,order_id,customer_id,flute_type,key,octave,scale_name,tuning_ref,flute_wood,block_wood
-1,1,3,Single,A,4,Minor Pent,528,Pine,
-2,1,3,Single,F,4,Minor Pent,528,African teak,
-3,1,3,Single,D,4,Minor Pent,528,Cherry,
-4,1,3,Drone,F,4,Minor Pent,528,Ambrosia Maple,Aromatic cedar
-5,1,3,Single,C,3,Minor Pent,432,Peruvian walnut,
-6,1,3,Single,F,4,Minor Pent,528,Picana,Maple
-7,2,4,Single,E,4,Minor Pent,440,Apple,
-8,2,4,Single,Eb,4,Minor Pent,440,Apple,
-9,3,5,Single,C,4,Minor Pent,440,Walnut,
-10,3,5,Single,G,3,Minor Pent,440,Alder,
-11,4,6,Drone,G,4,Minor Pent,440,,
-12,4,6,Drone,F#,4,Minor Pent,440,,
-13,5,7,Singl,D,5,Minor Pent,440,,
-14,5,7,Single,D,4,Minor Pent,440,,
-15,6,8,Single,Bb,3,Minor Pent,440,,
-16,7,9,Drone,A,4,Minor Pent,440,,
-17,8,10,Drone,F,4,Minor Pent,440,Aromatic Cedar,
-18,8,10,Single,F#,4,Minor Pent,528,Ambrosia Maple,
-19,8,10,Single,F#,4,Minor Pent,432,Bloodwood,
-20,9,11,Single,G,4,Minor Pent,440,Canarywood,Ambrosia Maple
-21,9,11,Single,Bb,4,Minor Pent,440,Ambrosia Maple,Walnut
-22,10,12,Single,G#,4,Minor Pent,528,,
-23,10,12,Single,E,4,Minor Pent,528,,
-24,10,12,Single,F#,4,Minor Pent,528,,
-25,11,13,Single,D,4,Minor Pent,440,Redwood,
-26,12,14,Drone,B,4,Minor Pent,440,Ambrosia Maple,Walnut
-27,13,15,Drone,F,4,Minor Pent,432,,
-28,14,16,Drone,G,4,Minor Pent,440,Ambrosia Maple,Walnut
-29,15,17,Single,F#,4,Minor pent,440,Osage orange,Tiger wood
-30,15,17,Single,B,4,Minor pent,440,Tiger wood,Tiger wood
+id,order_id,customer_id,flute_type,hand,key,octave,scale_name,tuning_ref,flute_wood,block_wood
+1,1,3,Single,Right,A,4,Minor Pent,528,Pine,
+2,1,3,Single,Right,F,4,Minor Pent,528,African teak,
+3,1,3,Single,Right,D,4,Minor Pent,528,Cherry,
+4,1,3,Drone,Right,F,4,Minor Pent,528,Ambrosia Maple,Aromatic cedar
+5,1,3,Single,Right,C,3,Minor Pent,432,Peruvian walnut,
+6,1,3,Single,Right,F,4,Minor Pent,528,Picana,Maple
+7,2,4,Single,Right,E,4,Minor Pent,440,Apple,
+8,2,4,Single,Right,Eb,4,Minor Pent,440,Apple,
+9,3,5,Single,Right,C,4,Minor Pent,440,Walnut,
+10,3,5,Single,Right,G,3,Minor Pent,440,Alder,
+11,4,6,Drone,Right,G,4,Minor Pent,440,,
+12,4,6,Drone,Right,F#,4,Minor Pent,440,,
+13,5,7,Singl,Right,D,5,Minor Pent,440,,
+14,5,7,Single,Right,D,4,Minor Pent,440,,
+15,6,8,Single,Right,Bb,3,Minor Pent,440,,
+16,7,9,Drone,Right,A,4,Minor Pent,440,,
+17,8,10,Drone,Right,F,4,Minor Pent,440,Aromatic Cedar,
+18,8,10,Single,Right,F#,4,Minor Pent,528,Ambrosia Maple,
+19,8,10,Single,Right,F#,4,Minor Pent,432,Bloodwood,
+20,9,11,Single,Right,G,4,Minor Pent,440,Canarywood,Ambrosia Maple
+21,9,11,Single,Right,Bb,4,Minor Pent,440,Ambrosia Maple,Walnut
+22,10,12,Single,Right,G#,4,Minor Pent,528,,
+23,10,12,Single,Right,E,4,Minor Pent,528,,
+24,10,12,Single,Right,F#,4,Minor Pent,528,,
+25,11,13,Single,Right,D,4,Minor Pent,440,Redwood,
+26,12,14,Drone,Right,B,4,Minor Pent,440,Ambrosia Maple,Walnut
+27,13,15,Drone,Right,F,4,Minor Pent,432,,
+28,14,16,Drone,Right,G,4,Minor Pent,440,Ambrosia Maple,Walnut
+29,15,17,Single,Right,F#,4,Minor pent,440,Osage orange,Tiger wood
+30,15,17,Single,Right,B,4,Minor pent,440,Tiger wood,Tiger wood
+31,16,20,Single,Right,G,4,Minor pent,440,Picana,
+32,16,20,Single,Right,D,5,Minor pent,440,,
+33,8,10,Single,Right,C,3,Minor pent,440,Ambrosia maple,Walnut
+34,8,10,Single,Right,G,4,Minor pent,528,Apple,

@@ -3,6 +3,7 @@ from database.connection import get_session
 
 sess = get_session()
 
+
 def use_key(my_key):
     """ """
     try:
