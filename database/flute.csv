@@ -29,3 +29,4 @@ id,order_id,customer_id,flute_type,key,octave,scale_name,tuning_ref,flute_wood,b
 28,14,16,Drone,G,4,Minor Pent,440,Ambrosia Maple,Walnut
 29,15,17,Single,F#,4,Minor pent,440,Osage orange,Tiger wood
 30,15,17,Single,B,4,Minor pent,440,Tiger wood,Tiger wood
+31,16,20,Single,D,4,Minor pent,432,Cherry,Unk
