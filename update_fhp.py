@@ -13,7 +13,6 @@ def spacing(nums):
 
 
 def get_fhp_values(key, octave):
-    spacing(10)
     item_list = []
     for row in sess.query(FHP).all():
         if row.key == str(key) and row.octave == int(octave):

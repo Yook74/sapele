@@ -1,5 +1,6 @@
 from database.models import Note, Scale, Customer
 from database.connection import get_session
+import os
 
 sess = get_session()
 
@@ -43,10 +44,10 @@ def main(my_key):
     try:
         key = use_key(my_key)
         selected_key = f'Key = {my_key}'
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         scale = get_scale()
         num_holes = len(scale.offsets)
-        spacing(20)
+        # spacing(20)
         print(selected_key)
         print(f'----------------------------')
         for note in range(num_holes):

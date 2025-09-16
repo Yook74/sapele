@@ -3,6 +3,7 @@ from database.connection import get_session
 from sqlalchemy import update
 from datetime import datetime
 import datetime
+import os
 
 
 sess = get_session()
@@ -21,9 +22,8 @@ def select_script() -> int:
 
 
 def update_my_orders(cust_id, first, last):
-
     while True:
-        spacing(10)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(f'Customer: {first} {last}')
         print('****************************')
         print('1. Update Customer         *')
@@ -38,28 +38,32 @@ def update_my_orders(cust_id, first, last):
 
         if selection == 1:
             update_customer(cust_id)
+            os.system('cls' if os.name == 'nt' else 'clear')
 
         elif selection == 2:
             update_order(cust_id)
+            os.system('cls' if os.name == 'nt' else 'clear')
 
         elif selection == 3:
             update_flute(cust_id)
+            os.system('cls' if os.name == 'nt' else 'clear')
 
         elif selection == 4:
             add_flute_to_order(cust_id, first, last)
+            os.system('cls' if os.name == 'nt' else 'clear')
 
         elif not selection:
             break
 
 
 def check_for_customer() -> [int, str, str]:
+    print()
 
-    cust_id = ''
     cust_list = [()]
     for item in sess.query(Customer).all():
         print(f'({item.id}) {item.first_name} {item.last_name}')
         cust_list.append([item.id, item.first_name, item.last_name])
-    cust_id = input('Enter ID Number: ')
+    cust_id = input('\nEnter ID Number: ')
     if not cust_id:
         result = [0, 'None', 'None']
     else:
@@ -307,7 +311,7 @@ def get_dates():
 
 def view_orders():
     while True:
-        spacing(10)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('****************************')
         print('1. View Customer Orders    *')
         print('2. View ALL Orders         *')
@@ -315,20 +319,19 @@ def view_orders():
         print('****************************')
 
         selection = select_script()
-        spacing(20)
+        print()
         name = ''
         if selection == 1:
             cust_id, first, last = check_for_customer()
             if cust_id == '0':
                 break
-            spacing(20)
             # if customer_found:
             for item in sess.query(Orders).all():
                 for cust in sess.query(Customer).all():
                     if cust.id == item.customer_id:
                         name = f'{cust.first_name} {cust.last_name}'
                         if item.customer_id == cust_id:
-                            print(f'({name}) ID: {item.id}, Customer ID: {item.customer_id}, '
+                            print(f'\n({name}) ID: {item.id}, Customer ID: {item.customer_id}, '
                                   f'Order Date: {item.order_date}, Total Price: {item.total_price}, '
                                   f'Discount: {item.discount}, Date Shipped: {item.ship_date}')
                             for flute in sess.query(Flute).all():
@@ -349,7 +352,6 @@ def view_orders():
             input('\nPress Enter to continue...')
 
         elif selection == 3:
-
             for item in sess.query(Orders).all():
                 for cust in sess.query(Customer).all():
                     if cust.id == item.customer_id:
@@ -366,7 +368,7 @@ def view_orders():
 
 def view_sales():
     while True:
-        spacing(10)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('****************************')
         print('1. All Sales               *')
         print('2. Sales By Customer       *')
@@ -427,9 +429,8 @@ def spacing(nums):
 
 
 def main():
-
     while True:
-        spacing(10)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('****************************')
         print('1. Create Customer         *')
         print('2. Create Order            *')
@@ -444,8 +445,9 @@ def main():
 
         elif selection == 2:
             cust_id, first, last = check_for_customer()
-            order_id = take_order(cust_id)
-            create_flute(order_id, cust_id)
+            if cust_id != 0:
+                order_id = take_order(cust_id)
+                create_flute(order_id, cust_id)
 
         elif selection == 3:
             cust_id, first, last = check_for_customer()
