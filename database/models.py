@@ -19,7 +19,6 @@ class Note(Base):
     def from_offset(cls, session: Session, offset: int):
         return session.query(cls).filter_by(offset=offset % 12).first()
 
-
     @classmethod
     def from_name(cls, session: Session, name: str):
         note = session.query(cls).filter_by(name=name.upper()).first()
@@ -82,13 +81,13 @@ class Flute(Base):
     order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
     customer_id = Column(Integer, nullable=False)
     flute_type = Column(String(50), nullable=False)
+    hand = Column(String(10), nullable=False)
     key = Column(String(5), nullable=False)
     octave = Column(Integer, nullable=False)
     scale_name = Column(String(50), nullable=False)
     tuning_ref = Column(Integer, nullable=False)
     flute_wood = Column(String(50))
     block_wood = Column(String(50))
-
 
 
 class FHP(Base):
