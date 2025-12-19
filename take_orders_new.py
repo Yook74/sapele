@@ -147,7 +147,6 @@ def update_customer(cust_id):
 
 
 def take_order(cust_id) -> int:
-
     today = f'{datetime.date.today().month}/{datetime.date.today().day}/{datetime.date.today().year}'
     entries = []
     entry_list = ('order_date', 'total_price', 'discount', 'ship_date')
@@ -162,8 +161,8 @@ def take_order(cust_id) -> int:
                 entry = defaults[entry_list.index(name)]
             entries.append(entry)
 
-    sess.add(Orders(customer_id=cust_id, order_date=entries[0], total_price=entries[1], discount=entries[2],
-             ship_date=entries[3]))
+    # sess.add(Orders(customer_id=cust_id, order_date=entries[0], total_price=entries[1], discount=entries[2],
+    #          ship_date=entries[3]))
 
     sess.commit()
     order_id = sess.query(Orders).count()
@@ -311,7 +310,7 @@ def get_dates():
 
 def view_orders():
     while True:
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('****************************')
         print('1. View Customer Orders    *')
         print('2. View ALL Orders         *')
@@ -363,7 +362,6 @@ def view_orders():
             input('\nPress Enter to continue...')
 
         elif not selection:
-            os.system('cls' if os.name == 'nt' else 'clear')
             break
 
 

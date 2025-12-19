@@ -1,10 +1,7 @@
 import scales
-import datetime
 from my_flute_class import MyFlute
-import take_order
-import save_tables
+import fltue_orders as order
 import os
-import time
 
 
 def select_script() -> int:
@@ -49,6 +46,41 @@ def get_scale_notes(flute):
     input(':')
 
 
+def my_orders():
+    while True:
+        print('****************************')
+        print('1. Take Order              *')
+        print('2. View Orders             *')
+        print('3. Update Order            *')
+        print('4. View Customer Orders    *')
+        print('****************************')
+
+        selection = input(f'SELECT NUMBER: ')
+
+        if selection == '1':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            order.take_order()
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        elif selection == '2':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            order.view_orders()
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        elif selection == '3':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            order.update_order()
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        elif selection == '4':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            order.view_customer_orders()
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        elif not selection:
+            break
+
+
 def craft_flute():
     flute = MyFlute.flute_key()
     spacing(2)
@@ -61,7 +93,6 @@ def craft_flute():
         print(f'3. Get Scale Notes         *')
         print(f'4. Change Key              *')
         print(f'5. FH Placement            *')
-        print(f'6. Export Tables to CSV    *')
         print(f'****************************')
 
         selection = select_script()
@@ -87,9 +118,6 @@ def craft_flute():
             fh_placement(flute)
             os.system('cls' if os.name == 'nt' else 'clear')
 
-        elif selection == 6:
-            save_tables.main()
-            os.system('cls' if os.name == 'nt' else 'clear')
 
         elif not selection:
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -102,10 +130,8 @@ def main():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(f'****************************')
-        print(f'1. Craft Flute             *')
-        print(f'2. Take Orders             *')
-        print(f'3. View Orders             *')
-        print(f'4. View Sales              *')
+        print(f'1. Craft                   *')
+        print(f'2. Orders                  *')
         print(f'****************************')
 
         selection = select_script()
@@ -118,17 +144,7 @@ def main():
 
         elif selection == 2:
             os.system('cls' if os.name == 'nt' else 'clear')
-            take_order.main()
-            os.system('cls' if os.name == 'nt' else 'clear')
-
-        elif selection == 3:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            take_order.view_orders()
-            os.system('cls' if os.name == 'nt' else 'clear')
-
-        elif selection == 4:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            take_order.view_sales()
+            my_orders()
             os.system('cls' if os.name == 'nt' else 'clear')
 
         elif not selection:

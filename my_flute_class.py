@@ -147,10 +147,6 @@ class MyFlute:
             if not selection:
                 break
 
-    def get_blank_sizing(self):
-        length = self.blank_length
-        print(length)
-
 
 
 

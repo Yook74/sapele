@@ -33,6 +33,7 @@ def get_scale() -> Scale:
         if scale is None:
             print('Invalid scale number')
         else:
+            os.system('cls' if os.name == 'nt' else 'clear')
             return scale
 
 

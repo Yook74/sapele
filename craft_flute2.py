@@ -2,7 +2,7 @@ import csv
 from math import sqrt
 
 
-def get_sizing(key, octave)-> str:
+def get_sizing(key, octave) -> str:
     my_key = key + '_' + str(octave)
     with open('records/initialSetup.csv') as data:
         my_file = csv.DictReader(data)
