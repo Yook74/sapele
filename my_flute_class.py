@@ -1,7 +1,7 @@
 import csv
 from math import sqrt
-import linecache
-import update_fhp
+import pandas as pd
+import os
 
 
 class MyFlute:
@@ -52,8 +52,16 @@ class MyFlute:
         return self.octave
 
     def print_fh_placement(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print()
+        fh = []
+        fhp = []
         for index, holes in enumerate(self.fh_values):
-            print(f'FH_{index+1}: {holes:.2f}')
+            fh.append(index+1)
+            fhp.append(f'{holes:.2f}')
+        for num in range(len(fh)-1, -1, -1):
+            print(f'FH_{fh[num]}: {fhp[num]}')
+
 
     @classmethod
     def flute_key(cls):
@@ -124,29 +132,35 @@ class MyFlute:
                        single_width, drone_width, drone_bore_center, key, octave, tuner_ref)
 
     def get_finger_hole_placements(self):
-        self.fh_values.clear()
-        self.bore_length = float(input('Enter the actual bore length: '))
-        while True:
-            self.fh_values.clear()
-            selection = (input('\n(1) Get FHP Values, (2) Update FHP Values: '))
-
-            if selection == '1':
-                finger_hole_percents = update_fhp.get_fhp_values(self.key, self.octave)
-                for percent in finger_hole_percents:
-                    self.fh_values.append(percent * self.bore_length)
+        file_path = r'C:\Users\carl.young\Documents\sapele\csv_stuff\fh_percents.csv'
+        bore = input('\nEnter the actual bore length: ')
+        if bore:
+            while True:
+                self.fh_values.clear()
+                selection = (input('\n(1) Get FHP Values, (2) Update FHP Values: \n'))
+                if not selection:
+                    break
+                df = pd.read_csv(file_path)
+                fhp = df[(df['key'] == self.key) & (df['octave'] == int(self.octave))]
+                fhp_list = list(fhp[['fh_1', 'fh_2', 'fh_3', 'fh_4', 'fh_5', 'fh_6', 'fh_7']].values)[0]
+                for percent in fhp_list:
+                    if percent != 0:
+                        self.fh_values.append(percent * float(bore))
                 self.print_fh_placement()
 
-            if selection == '2':
-                update_fhp.update_fhp_values(self.key, self.octave, self.bore_length)
-                print()
+                update_holes = input('\nUpdate Holes? ')
+                if update_holes:
+                    df = pd.read_csv(file_path)
+                    idx = (df[(df['key'] == self.key) & (df['octave'] == int(self.octave))].index[0])
+                    hole = input('\nEnter hole number: ')
+                    hole = int(hole) -1
+                    new_pos = input('New Value: ')
+                    df.loc[idx, f'fh_{hole+1}'] = (float(new_pos) / float(bore))
+                    df.to_csv(file_path, index=False)
+                    print()
 
-            if selection == '3':
-                update_fhp.add_fhp_values()
-                print()
-
-            if not selection:
-                break
-
+                if not selection:
+                    break
 
 
 

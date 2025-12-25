@@ -1,6 +1,6 @@
-import scales
 from my_flute_class import MyFlute
 import fltue_orders as order
+import pandas as pd
 import os
 
 
@@ -42,7 +42,26 @@ def get_ref_offset(flute):
 
 
 def get_scale_notes(flute):
-    scales.main(flute.get_flute_key())
+    fp_1 = r'C:\Users\carl.young\Documents\sapele\csv_stuff\notes_table.csv'
+    fp_2 = r'C:\Users\carl.young\Documents\sapele\csv_stuff\intervals.csv'
+    key = flute.get_flute_key()
+    df1 = pd.read_csv(fp_1)
+    row = df1[df1['0'].str.contains(f'({key})', regex=False)]\
+        .to_string(index=False, justify='center', header=None).split()
+
+    df2 = pd.read_csv(fp_2)
+    scales = (df2['0'])
+    print(scales.to_string())
+    sel = int(input('\nSelect scale: '))
+    os.system('cls' if os.name == 'nt' else 'clear')
+    row2 = df2[df2['0'].str.contains(scales[sel], regex=False)]\
+        .to_string(index=False, justify='center', header=None).split()
+
+    print(f'\n< Scale: {key} - {scales[sel]} >\n')
+    for num in range(7, 0, -1):
+        if row2[num] != "NaN":
+            print('FH:', [num], ': ', row[int(float(row2[num]))])
+    print()
     input(':')
 
 
@@ -98,26 +117,30 @@ def craft_flute():
         selection = select_script()
 
         if selection == 1:
+            os.system('cls' if os.name == 'nt' else 'clear')
             blank_size(flute)
             os.system('cls' if os.name == 'nt' else 'clear')
 
         elif selection == 2:
+            os.system('cls' if os.name == 'nt' else 'clear')
             get_ref_offset(flute)
             os.system('cls' if os.name == 'nt' else 'clear')
 
         elif selection == 3:
+            os.system('cls' if os.name == 'nt' else 'clear')
             get_scale_notes(flute)
             os.system('cls' if os.name == 'nt' else 'clear')
 
         elif selection == 4:
+            os.system('cls' if os.name == 'nt' else 'clear')
             flute = MyFlute.flute_key()
             os.system('cls' if os.name == 'nt' else 'clear')
             print(flute.get_flute_key())
 
         elif selection == 5:
+            os.system('cls' if os.name == 'nt' else 'clear')
             fh_placement(flute)
             os.system('cls' if os.name == 'nt' else 'clear')
-
 
         elif not selection:
             os.system('cls' if os.name == 'nt' else 'clear')

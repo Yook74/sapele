@@ -7,7 +7,7 @@ from typing import Iterable
 import os
 
 
-file_path = r'C:\\Users\carl.young\Documents\sapele\csv stuff\my_orders.csv'
+file_path = r'C:\\Users\carl.young\Documents\sapele\csv_stuff\my_orders.csv'
 csv_labels = ['Name', 'Flute Type', 'Key', 'Octave', 'Ref', 'Scale', 'Flute Wood', 'Block Wood', 'Qty', 'Price',
               'Total', 'Order Date', 'Ship Date']
 orders = pd.read_csv(file_path)
