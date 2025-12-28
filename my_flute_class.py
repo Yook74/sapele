@@ -98,7 +98,7 @@ class MyFlute:
             octave = '4'
 
         my_key = key + '_' + octave
-        with open('records/initialSetup.csv') as data:
+        with open('csv_stuff/initialSetup.csv') as data:
 
             my_file = csv.DictReader(data)
 
