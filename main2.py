@@ -40,7 +40,6 @@ def get_ref_offset(flute):
     print(f'----------------------------')
     input(':')
 
-
 def get_scale_notes(flute):
     fp_1 = r'C:\Users\carl.young\Documents\sapele\csv_stuff\notes_table.csv'
     fp_2 = r'C:\Users\carl.young\Documents\sapele\csv_stuff\intervals.csv'

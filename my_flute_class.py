@@ -153,11 +153,13 @@ class MyFlute:
                     df = pd.read_csv(file_path)
                     idx = (df[(df['key'] == self.key) & (df['octave'] == int(self.octave))].index[0])
                     hole = input('\nEnter hole number: ')
-                    hole = int(hole) -1
+                    hole = int(hole) - 1
                     new_pos = input('New Value: ')
                     df.loc[idx, f'fh_{hole+1}'] = (float(new_pos) / float(bore))
                     df.to_csv(file_path, index=False)
+                    self.fh_values[int(hole)] = float(new_pos)
                     print()
+                    self.print_fh_placement()
 
                 if not selection:
                     break
