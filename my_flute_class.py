@@ -60,7 +60,11 @@ class MyFlute:
             fh.append(index+1)
             fhp.append(f'{holes:.2f}')
         for num in range(len(fh)-1, -1, -1):
-            print(f'FH_{fh[num]}: {fhp[num]}')
+            if float(fhp[num]) - float(fhp[num - 1]) > 0:
+                print(f'FH_{fh[num]}: {fhp[num]} : {(float(fhp[num]) - float(fhp[num-1])):.2f}')
+            else:
+                print(f'FH_{fh[num]}: {fhp[num]}')
+
 
 
     @classmethod
