@@ -8,8 +8,8 @@ import os
 
 
 file_path = r'C:\\Users\carl.young\Documents\sapele\csv_stuff\my_orders.csv'
-csv_labels = ['Name', 'Flute Type', 'Key', 'Octave', 'Ref', 'Scale', 'Flute Wood', 'Block Wood', 'Qty', 'Price',
-              'Total', 'Order Date', 'Ship Date']
+csv_labels = ['Name', 'Type', 'Key', 'Octave', 'Ref', 'Scale', 'Flute', 'Block', 'Qty', 'Price',
+              'Total', 'Order_Date', 'Ship_Date']
 orders = pd.read_csv(file_path)
 pd.set_option('display.max_columns', None)
 
@@ -28,14 +28,19 @@ def take_order():
     price = 0
 
     order.append(len(orders)+1)
+    print()
 
-    name = input('Name: ')
-    while not name:
-        name = input('Name: ')
+    first_name = input('First Name: ')
+    while not first_name:
+        first_name = input('First Name: ')
+    last_name = input('Last Name: ')
+    while not last_name:
+        last_name = input('Last Name: ')
+    name = f'{first_name}_{last_name}'
     order.append(name)
-    flute_type = input('Flute Type: (Single) ')
-    if not flute_type:
-        flute_type = 'Single'
+    flute_type = input('Flute Type: (1) Single, (2) Drone) ')
+    while not flute_type:
+        flute_type = input('Flute Type: (1) Single, (2) Drone) ')
     order.append(flute_type)
 
     while not key:
@@ -54,7 +59,7 @@ def take_order():
 
     scale = input('Scale (Minor Pent): ')
     if not scale:
-        scale = 'Minor Pent'
+        scale = 'Minor_Pent'
     order.append(scale)
 
     while not flute_wood:
@@ -84,7 +89,7 @@ def take_order():
 
     ship_date = input('Ship Date: ')
     if not ship_date:
-        ship_date = 'Not Shipped'
+        ship_date = 'Not_Shipped'
     order.append(ship_date)
 
     store_to_file.append_to_csv(file_path, order)
@@ -104,20 +109,23 @@ def update_order():
                   f"{row.get('Order Date')}, {row.get('Ship Date')}")
             num += 1
             names.append(row.get('Name'))
-        order_id = int(input('\nSelect Order ID: \n'))
+        order_id = input('\nSelect Order ID: \n')
+        while not order_id:
+            order_id = input('\nSelect Order ID: \n')
         num = 0
         with open(file_path, 'r') as csv_file:
             csv_reader: Iterable[dict[str, str]] = csv.DictReader(csv_file)
             for row in csv_reader:
-                if int(row.get('Order ID')) == order_id:
+                if int(row.get('Order_ID')) == int(order_id):
                     row_data = list(row.items())
                     for item in row_data:
                         print(f'{num}. {item}')
                         num += 1
-                    item_num = int(input('\nSelect Item: '))
-                    column_name = row_data[item_num][0]
-                    new_value = input('Enter replacement value: \n')
-                    store_to_file.update_file(file_path, 'Order ID', order_id, column_name, new_value)
+                    item_num = input('\nSelect Item: ')
+                    while item_num:
+                        column_name = row_data[int(item_num)][0]
+                        new_value = input('Enter replacement value: ')
+                        store_to_file.update_file(file_path, 'Order_ID', order_id, column_name, new_value)
 
 
 def view_customer_orders():
@@ -131,48 +139,12 @@ def view_customer_orders():
                 print(f"{num}: {row.get('Name')}")
                 ref.append(row.get('Name'))
                 num += 1
-    select = int(input('\nSelect Name: '))
-    name = ref[select-1]
+        select = input('\nSelect Name: ')
+        while not select:
+            select = input('\nSelect Name: ')
+        name = ref[int(select)-1]
     os.system('cls' if os.name == 'nt' else 'clear')
     print()
     print(orders[orders['Name'].str.contains(name)].to_string(index=False, justify='center'))
-    input('\nPress Enter to continue...')
 
-#
-# def main():
-#     while True:
-#         print('****************************')
-#         print('1. Take Order              *')
-#         print('2. View Orders             *')
-#         print('3. Update Order            *')
-#         print('4. View Customer Orders    *')
-#         print('****************************')
-#
-#         selection = input(f'SELECT NUMBER: ')
-#
-#         if selection == '1':
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#             take_order()
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#
-#         elif selection == '2':
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#             view_orders()
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#
-#         elif selection == '3':
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#             update_order()
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#
-#         elif selection == '4':
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#             view_customer_orders()
-#             os.system('cls' if os.name == 'nt' else 'clear')
-#
-#         elif not selection:
-#             break
-#
-#
-# if __name__ == '__main__':
-#     main()
+    input('\nPress Enter to continue...')
