@@ -33,15 +33,18 @@ def get_scale_notes(flute):
         .to_string(index=False, justify='center', header=None).split()
 
     df2 = pd.read_csv(fp_2)
-    scales = (df2['0'])
-    print(scales.to_string())
-    sel = int(input('\nSelect scale: '))
+    # scales = (df2['0'])
+    scales = df2['0'].tolist()
+    size = len(scales)
+    print()
+    for num in range(0, size, 1):
+        print(f'{num +1}: {scales[num]}')
+    sel = int(input('\nSelect scale: '))-1
     if not sel:
         sel = 0
     os.system('cls' if os.name == 'nt' else 'clear')
     row2 = df2[df2['0'].str.contains(scales[sel], regex=False)]\
         .to_string(index=False, justify='center', header=None).split()
-
     print(f'\n< Scale: {key} - {scales[sel]} >\n')
     for num in range(7, 0, -1):
         if row2[num] != "NaN":
@@ -140,7 +143,6 @@ def craft_flute():
 
 def main():
     while True:
-        # os.system('cls' if os.name == 'nt' else 'clear')
         print()
         print('****************************')
         print('1. Craft                   *')
