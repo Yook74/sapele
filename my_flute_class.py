@@ -73,7 +73,7 @@ class MyFlute:
         check = False
         key = ''
         while not check:
-            key = input('Enter the flute Key: ').upper()
+            key = input('\nEnter the flute Key: ').upper()
             if not len(key) == 1:
                 key = key[0] + (key[1].lower())
             if key not in keys:

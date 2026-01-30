@@ -31,9 +31,7 @@ def get_scale_notes(flute):
     df1 = pd.read_csv(fp_1)
     row = df1[df1['0'].str.contains(f'({key})', regex=False)]\
         .to_string(index=False, justify='center', header=None).split()
-
     df2 = pd.read_csv(fp_2)
-    # scales = (df2['0'])
     scales = df2['0'].tolist()
     size = len(scales)
     print()
